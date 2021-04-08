@@ -85,6 +85,9 @@ public class AttendantControlConsole {
         return dispenserController.loadCoin(coin,number);
     }
 
+    public boolean getStationStatus(){
+        return stationActive;
+    }
     public boolean startUpStation()throws SoftwareException{
         if(currentAttendant != null){
             station.banknoteValidator.enable();

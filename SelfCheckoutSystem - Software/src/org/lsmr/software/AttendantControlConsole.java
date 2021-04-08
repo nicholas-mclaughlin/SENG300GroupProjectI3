@@ -5,7 +5,7 @@ import org.lsmr.selfcheckout.Coin;
 import org.lsmr.selfcheckout.devices.*;
 
 import java.math.BigDecimal;
-import java.util.Currency;
+
 import java.util.List;
 
 public class AttendantControlConsole {
@@ -54,14 +54,24 @@ public class AttendantControlConsole {
         station.printer.addInk(quantity);
     }
 
-    public List<Banknote> emptyBanknoteStorage() throws SoftwareException{
+    public int emptyBanknoteStorage() throws SoftwareException{
         if(currentAttendant == null) throw new SoftwareException("Log in required");
-        return  storageUnitContoller.unloadBanknote();
+        List<Banknote> banknotes = storageUnitContoller.unloadBanknote();
+        int sum = 0;
+        for(Banknote aBanknote : banknotes){
+            sum += aBanknote.getValue();
+        }
+        return sum;
     }
 
-    public List<Coin> emptyCoinStorage() throws SoftwareException{
+    public BigDecimal emptyCoinStorage() throws SoftwareException{
         if(currentAttendant == null) throw new SoftwareException("Log in required");
-        return  storageUnitContoller.unloadCoin();
+        List<Coin> coins = storageUnitContoller.unloadCoin();
+        BigDecimal sum = new BigDecimal("0");
+        for(Coin aCoin : coins){
+            sum.add(aCoin.getValue());
+        }
+        return sum;
     }
 
     public int loadBanknote(Banknote banknote, int number)

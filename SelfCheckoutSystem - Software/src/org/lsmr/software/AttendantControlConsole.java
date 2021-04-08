@@ -16,9 +16,10 @@ public class AttendantControlConsole {
     private SelfCheckoutStation station;
     private String currentAttendant = null;
     private boolean stationActive;
-    public AttendantControlConsole(SoftwareController centre){
+
+    public AttendantControlConsole(SoftwareController centre ,SelfCheckoutStation station ){
         this.centre = centre;
-        this.station = centre.getStation();
+        this.station = station;
         this.dispenserController = new DispenserController(station);
         this.storageUnitContoller = new StorageUnitContoller(station);
     }
@@ -41,8 +42,17 @@ public class AttendantControlConsole {
         }
     }
 
+    public void addPaper(int units) throws SimulationException,SoftwareException{
+        if(currentAttendant == null) throw new SoftwareException("Log in required");
+        //Other Exception will be thrown by printer as simulationException
+        station.printer.addPaper(units);
+    }
 
-
+    public void addInk(int quantity) throws SimulationException,SoftwareException{
+        if(currentAttendant == null) throw new SoftwareException("Log in required");
+        //Other Exception will be thrown by printer as simulationException
+        station.printer.addInk(quantity);
+    }
 
     public List<Banknote> emptyBanknoteStorage() throws SoftwareException{
         if(currentAttendant == null) throw new SoftwareException("Log in required");
@@ -65,7 +75,7 @@ public class AttendantControlConsole {
         return dispenserController.loadCoin(coin,number);
     }
 
-    public void startUpStation()throws SoftwareException{
+    public boolean startUpStation()throws SoftwareException{
         if(currentAttendant != null){
             station.banknoteValidator.enable();
             station.banknoteInput.enable();
@@ -91,12 +101,13 @@ public class AttendantControlConsole {
             station.printer.enable();
             station.screen.enable();
             this.stationActive = true;
+            return true;
         }else{
             throw new SoftwareException("Log in required");
         }
     }
 
-    public void shutDownStation()throws SoftwareException{
+    public boolean shutDownStation()throws SoftwareException{
         if(currentAttendant != null){
             station.banknoteValidator.disable();
             station.banknoteInput.disable();
@@ -122,6 +133,7 @@ public class AttendantControlConsole {
             station.printer.disable();
             station.screen.disable();
             this.stationActive = false;
+            return false;
         }else{
             throw new SoftwareException("Log in required");
         }

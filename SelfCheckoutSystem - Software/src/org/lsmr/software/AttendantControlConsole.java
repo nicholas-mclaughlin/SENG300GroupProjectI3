@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 
-public class AttendantControllConsole {
+public class AttendantControlConsole {
     private SoftwareController centre;
     public final AttendantDataBase attendantDataBase = new AttendantDataBase();
     private DispenserController dispenserController;
@@ -16,7 +16,7 @@ public class AttendantControllConsole {
     private SelfCheckoutStation station;
     private String currentAttendant = null;
     private boolean stationActive;
-    public AttendantControllConsole(SoftwareController centre){
+    public AttendantControlConsole(SoftwareController centre){
         this.centre = centre;
         this.station = centre.getStation();
         this.dispenserController = new DispenserController(station);

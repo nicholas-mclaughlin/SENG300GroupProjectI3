@@ -6,12 +6,14 @@ package org.lsmr.software;
 *
  */
 public class SoftwareException extends RuntimeException {
-    public SoftwareException(String message){
-        System.out.println(message);
+    private String msg;
+    public SoftwareException(String msg){
+        this.msg = msg;
+        System.out.println(msg);
     }
 
     @Override
     public String getMessage() {
-        return super.getMessage();
+        return msg;
     }
 }

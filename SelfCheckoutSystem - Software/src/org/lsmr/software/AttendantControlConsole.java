@@ -24,6 +24,11 @@ public class AttendantControlConsole {
         this.storageUnitContoller = new StorageUnitContoller(station);
     }
 
+    public boolean addEntry(String username,String password) {
+        if (currentAttendant == null) throw new SoftwareException("Log in required");
+        return attendantDataBase.addEntry(username,password);
+    }
+
     public boolean logIn(String username,String password){
         if(attendantDataBase.logIn(username,password)){
             currentAttendant = username;

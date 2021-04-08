@@ -23,10 +23,7 @@ public class AttendantDataBase {
 
     public boolean logIn(String username,String password){
         if(verifyExistence(username)){
-            if(password.equals(attendantData.get(username))){
-                return true;
-            }
-            return false;
+            return password.equals(attendantData.get(username));
         }
         return false;
     }
@@ -38,10 +35,6 @@ public class AttendantDataBase {
     }
 
     public boolean verifyExistence(String username){
-        if(attendantData.containsKey(username)){
-            return false;
-        }else{
-            return true;
-        }
+        return attendantData.containsKey(username);
     }
 }

@@ -1,8 +1,8 @@
 package org.lsmr.software;
 
-import org.lsmr.selfcheckout.Banknote;
-import org.lsmr.selfcheckout.Coin;
+import org.lsmr.selfcheckout.*;
 import org.lsmr.selfcheckout.devices.*;
+import org.lsmr.selfcheckout.products.Product;
 
 import java.math.BigDecimal;
 /*
@@ -50,6 +50,26 @@ public class AttendantControlConsole {
         }else{
             currentAttendant = null;
             return true;
+        }
+    }
+
+    //attendant look up a Barcoded product
+    public Product attendantLookforBarcodedProdcut(Barcode barcode){
+        if (currentAttendant == null) throw new SoftwareException("Log in required");
+        return centre.getDatabaseController().getBarcodedProduct(barcode);
+    }
+
+    //attendant look up price looking up coded product
+    public Product attendantLookforPLUcodedProdcut(PriceLookupCode pluCode){
+        if (currentAttendant == null) throw new SoftwareException("Log in required");
+        return centre.getDatabaseController().getPLUcodedProduct(pluCode);
+    }
+
+    //attedant remove a prodcut from order
+    public void removeProdcutFromorder(Purchase order,Product product){
+        if (currentAttendant == null) throw new SoftwareException("Log in required");
+        if(order.getProducts().contains(product)){
+            order.removeItem(product);
         }
     }
 

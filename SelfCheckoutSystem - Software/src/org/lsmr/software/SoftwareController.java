@@ -64,4 +64,5 @@ public class SoftwareController {
     public SelfCheckoutStation getStation(){
         return this.station;
     }
+    public DatabaseController getDatabaseController(){return this.databaseController;}
 }

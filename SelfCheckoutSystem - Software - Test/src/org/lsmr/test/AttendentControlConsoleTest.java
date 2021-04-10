@@ -7,9 +7,12 @@ import java.util.Currency;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.lsmr.selfcheckout.Banknote;
 import org.lsmr.selfcheckout.Barcode;
 import org.lsmr.selfcheckout.PriceLookupCode;
+import org.lsmr.selfcheckout.devices.OverloadException;
 import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
+import org.lsmr.selfcheckout.devices.SimulationException;
 import org.lsmr.selfcheckout.products.BarcodedProduct;
 import org.lsmr.selfcheckout.products.PLUCodedProduct;
 import org.lsmr.selfcheckout.products.Product;
@@ -18,6 +21,7 @@ import org.lsmr.software.AttendantDataBase;
 import org.lsmr.software.Database;
 import org.lsmr.software.DatabaseController;
 import org.lsmr.software.DatabaseItem;
+import org.lsmr.software.DispenserController;
 import org.lsmr.software.Purchase;
 import org.lsmr.software.SoftwareController;
 import org.lsmr.test.PaymentControllerTest.SoftwareControllerStub;
@@ -156,9 +160,16 @@ public class AttendentControlConsoleTest {
 	}
 	
 	@Test
-	public void testEmptyBanknote() {
+	public void testEmptyBanknote() throws SimulationException, OverloadException {
 		attendantControlConsole.logIn("employee1", "1234");
+		Banknote fives = new Banknote(5, Currency.getInstance("CAD"));
+		Banknote tens = new Banknote(10, Currency.getInstance("CAD"));
+		Banknote[] banknote = {fives, tens, fives, tens};
+		station.banknoteStorage.load(banknote);
 		
+		int result = attendantControlConsole.emptyBanknoteStorage();
+		
+		//assertEquals(0, result);
 		
 	}
 

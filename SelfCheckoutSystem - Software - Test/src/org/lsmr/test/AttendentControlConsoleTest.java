@@ -47,6 +47,9 @@ public class AttendentControlConsoleTest {
         //softwareController = new SoftwareController(station);
         
         attendantControlConsole = new AttendantControlConsole(softwareControllerStub, station);
+        
+		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
+
 	}
 	
 	class SoftwareControllerStub extends SoftwareController {
@@ -60,7 +63,6 @@ public class AttendentControlConsoleTest {
 	public void testLoginSuccessful() {
 		boolean expected = true;
 		
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		boolean result = attendantControlConsole.logIn("employee1", "1234");
 		
 		assertEquals(expected, result);
@@ -70,7 +72,6 @@ public class AttendentControlConsoleTest {
 	public void testLoginWrongPassword() {
 		boolean expected = false;
 		
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		boolean result = attendantControlConsole.logIn("employee1", "4321");
 		
 		assertEquals(expected, result);
@@ -80,7 +81,6 @@ public class AttendentControlConsoleTest {
 	public void testLoginWrongUsername() {
 		boolean expected = false;
 		
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		boolean result = attendantControlConsole.logIn("name", "1234");
 		
 		assertEquals(expected, result);
@@ -91,7 +91,6 @@ public class AttendentControlConsoleTest {
 	public void testLogoutSuccessful() {
 		boolean expected = true;
 		
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
 		boolean result = attendantControlConsole.logOut();
 		
@@ -111,7 +110,6 @@ public class AttendentControlConsoleTest {
 	// Test attendant looks up barcoded item
 	@Test
 	public void testLookUpBarcodedProduct(){
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
         Barcode code = new Barcode("12345");
         BarcodedProduct product = new BarcodedProduct(code, "item1", new BigDecimal("10.00"));
@@ -126,7 +124,6 @@ public class AttendentControlConsoleTest {
 	// Test attendant looks up PLU coded product
 	@Test
 	public void testLookUpPLUCode(){
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
         PriceLookupCode code = new PriceLookupCode("0987");
         PLUCodedProduct product = new PLUCodedProduct(code, "item1", new BigDecimal("10.00"));
@@ -140,7 +137,6 @@ public class AttendentControlConsoleTest {
 	// Attendant removes product
 	@Test
 	public void testRemoveProduct() {
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
         Barcode code = new Barcode("12345");
         BarcodedProduct product = new BarcodedProduct(code, "item1", new BigDecimal("10.00"));
@@ -155,18 +151,20 @@ public class AttendentControlConsoleTest {
 	// Attendant adds paper
 	@Test
 	public void testAddPaper() {
-		
+		attendantControlConsole.logIn("employee1", "1234");
+		attendantControlConsole.addPaper(1000);
 	}
 	
 	@Test
 	public void testEmptyBanknote() {
+		attendantControlConsole.logIn("employee1", "1234");
+		
 		
 	}
 
 	// Attendant stats up station
 	@Test
 	public void testStartUp() {
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
 		boolean expected = true;
 		
@@ -178,7 +176,6 @@ public class AttendentControlConsoleTest {
 	// Attendant shuts down station
 	@Test
 	public void testShutDown() {
-		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
 		attendantControlConsole.logIn("employee1", "1234");
 		boolean expected = false;
 		

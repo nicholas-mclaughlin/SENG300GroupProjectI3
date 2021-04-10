@@ -34,6 +34,7 @@ public class StorageUnitContoller {
         List<Banknote> banknotes = banknoteStorageUnit.unload();
         int sum = 0;
         for(Banknote aBanknote : banknotes){
+            if(aBanknote == null)break;
             sum += aBanknote.getValue();
         }
         return sum;
@@ -47,6 +48,7 @@ public class StorageUnitContoller {
         List<Coin> coins = coinStorageUnit.unload();
         BigDecimal sum = new BigDecimal("0");
         for(Coin aCoin : coins){
+            if(aCoin == null)break;
             sum = sum.add(aCoin.getValue());
         }
         return sum;

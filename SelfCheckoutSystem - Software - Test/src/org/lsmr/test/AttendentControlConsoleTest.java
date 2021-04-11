@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lsmr.selfcheckout.Banknote;
 import org.lsmr.selfcheckout.Barcode;
+import org.lsmr.selfcheckout.Coin;
 import org.lsmr.selfcheckout.PriceLookupCode;
 import org.lsmr.selfcheckout.devices.OverloadException;
 import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
@@ -159,8 +160,9 @@ public class AttendentControlConsoleTest {
 		attendantControlConsole.addPaper(1000);
 	}
 	
+	// Attendant unloads banknotes
 	@Test
-	public void testEmptyBanknote() throws SimulationException, OverloadException {
+	public void testUnloadBanknote() throws SimulationException, OverloadException {
 		attendantControlConsole.logIn("employee1", "1234");
 		Banknote fives = new Banknote(5, Currency.getInstance("CAD"));
 		Banknote tens = new Banknote(10, Currency.getInstance("CAD"));
@@ -169,8 +171,67 @@ public class AttendentControlConsoleTest {
 		
 		int result = attendantControlConsole.emptyBanknoteStorage();
 		
-		//assertEquals(0, result);
+		assertEquals(0, result);
+	}
+	
+	// Attendant unloads coins
+	@Test
+	public void testUnloadCoin() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Coin dime = new Coin(BigDecimal.valueOf(0.10), Currency.getInstance("CAD"));
+		Coin nickle = new  Coin(BigDecimal.valueOf(0.05), Currency.getInstance("CAD"));
+		Coin[] coin = {dime, nickle, dime, nickle};
+		station.coinStorage.load(coin);
 		
+		int result = attendantControlConsole.emptyCoinStorage();
+		
+		assertEquals(0, result);
+	}
+	
+	// Attendant loads banknotes
+	@Test
+	public void testLoadSameBanknote() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Banknote fives = new Banknote(5, Currency.getInstance("CAD"));
+		
+		int result = attendantControlConsole.loadBanknote(fives, 10);
+		
+		assertEquals(50, result);
+	}
+	
+	@Test
+	public void testLoadDifferentBanknote() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Banknote fives = new Banknote(5, Currency.getInstance("CAD"));
+		Banknote tens = new Banknote(10, Currency.getInstance("CAD"));
+		Banknote[] banknote = {fives, tens, fives};
+		
+		int result = attendantControlConsole.loadBanknote(banknote);
+		
+		assertEquals(20, result);
+	}
+	
+	// Attendant loads coins
+	@Test
+	public void testLoadSameCoin() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Coin dime = new Coin(BigDecimal.valueOf(0.10), Currency.getInstance("CAD"));
+		
+		BigDecimal result = attendantControlConsole.loadCoin(dime, 20);
+		
+		assertEquals(BigDecimal.valueOf(2.00), result);
+	}
+	
+	@Test
+	public void testLoadDifferentCoin() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Coin dime = new Coin(BigDecimal.valueOf(0.10), Currency.getInstance("CAD"));
+		Coin nickle = new  Coin(BigDecimal.valueOf(0.05), Currency.getInstance("CAD"));
+		Coin[] coin = {dime, nickle, nickle, nickle};
+		
+		BigDecimal result = attendantControlConsole.loadCoin(coin);
+		
+		assertEquals(BigDecimal.valueOf(0.25), result);
 	}
 
 	// Attendant stats up station

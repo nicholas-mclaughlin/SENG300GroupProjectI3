@@ -25,6 +25,7 @@ import org.lsmr.software.DatabaseItem;
 import org.lsmr.software.DispenserController;
 import org.lsmr.software.Purchase;
 import org.lsmr.software.SoftwareController;
+import org.lsmr.software.SoftwareException;
 import org.lsmr.test.PaymentControllerTest.SoftwareControllerStub;
 
 public class AttendentControlConsoleTest {
@@ -54,6 +55,7 @@ public class AttendentControlConsoleTest {
         attendantControlConsole = new AttendantControlConsole(softwareControllerStub, station);
         
 		attendantControlConsole.attendantDataBase.addEntry("employee1", "1234");
+		attendantControlConsole.attendantDataBase.addEntry("employee2", "4321");
 
 	}
 	
@@ -124,6 +126,12 @@ public class AttendentControlConsoleTest {
 		Product result = attendantControlConsole.attendantLookforBarcodedProdcut(code);
 		
 		assertEquals(product, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.attendantLookforBarcodedProdcut(code);
+		});  
 	}
 	
 	// Test attendant looks up PLU coded product
@@ -137,6 +145,12 @@ public class AttendentControlConsoleTest {
 		Product result = attendantControlConsole.attendantLookforPLUcodedProdcut(code);
 		
 		assertEquals(product, result);
+		
+		attendantControlConsole.logOut();
+			
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.attendantLookforPLUcodedProdcut(code);
+		});  
 	}
 	
 	// Attendant removes product
@@ -151,13 +165,47 @@ public class AttendentControlConsoleTest {
         attendantControlConsole.removeProdcutFromorder(purchase, product);
         
         assertEquals(new BigDecimal("0"), purchase.getSubtotal());
+        
+        attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			 attendantControlConsole.removeProdcutFromorder(purchase, product);
+		});  
 	}
 	
 	// Attendant adds paper
 	@Test
 	public void testAddPaper() {
 		attendantControlConsole.logIn("employee1", "1234");
-		attendantControlConsole.addPaper(1000);
+		attendantControlConsole.addPaper(10);
+		
+		
+		assertThrows(SimulationException.class, () -> {
+			 attendantControlConsole.addPaper(2000);
+		});  
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.addPaper(10);
+		});  
+	}
+	
+	@Test
+	public void testAddInk() {
+		attendantControlConsole.logIn("employee1", "1234");
+		attendantControlConsole.addInk(10);
+		
+		
+		assertThrows(SimulationException.class, () -> {
+			 attendantControlConsole.addInk(2000000);
+		});  
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.addInk(10);
+		});  
 	}
 	
 	// Attendant unloads banknotes
@@ -172,6 +220,12 @@ public class AttendentControlConsoleTest {
 		int result = attendantControlConsole.emptyBanknoteStorage();
 		
 		assertEquals(0, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.emptyBanknoteStorage();
+		});  
 	}
 	
 	// Attendant unloads coins
@@ -186,6 +240,12 @@ public class AttendentControlConsoleTest {
 		int result = attendantControlConsole.emptyCoinStorage();
 		
 		assertEquals(0, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.emptyCoinStorage();
+		});  
 	}
 	
 	// Attendant loads banknotes
@@ -197,6 +257,12 @@ public class AttendentControlConsoleTest {
 		int result = attendantControlConsole.loadBanknote(fives, 10);
 		
 		assertEquals(50, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.loadBanknote(fives, 10);
+		});  
 	}
 	
 	@Test
@@ -209,6 +275,23 @@ public class AttendentControlConsoleTest {
 		int result = attendantControlConsole.loadBanknote(banknote);
 		
 		assertEquals(20, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.loadBanknote(banknote);
+		});  
+	}
+	
+	@Test
+	public void testOverloadBanknote() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Banknote fives = new Banknote(5, Currency.getInstance("CAD"));
+		
+		assertThrows(OverloadException.class, () -> {
+			attendantControlConsole.loadBanknote(fives, 1000);
+		});  
+		
 	}
 	
 	// Attendant loads coins
@@ -220,6 +303,12 @@ public class AttendentControlConsoleTest {
 		BigDecimal result = attendantControlConsole.loadCoin(dime, 20);
 		
 		assertEquals(BigDecimal.valueOf(2.00), result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.loadCoin(dime, 20);
+		});  
 	}
 	
 	@Test
@@ -232,6 +321,22 @@ public class AttendentControlConsoleTest {
 		BigDecimal result = attendantControlConsole.loadCoin(coin);
 		
 		assertEquals(BigDecimal.valueOf(0.25), result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.loadCoin(coin);
+		});  
+	}
+	
+	@Test
+	public void testOverLoadCoin() throws SimulationException, OverloadException {
+		attendantControlConsole.logIn("employee1", "1234");
+		Coin dime = new Coin(BigDecimal.valueOf(0.10), Currency.getInstance("CAD"));
+		
+		assertThrows(OverloadException.class, () -> {
+			attendantControlConsole.loadCoin(dime, 1000);
+		});  
 	}
 
 	// Attendant stats up station
@@ -243,6 +348,12 @@ public class AttendentControlConsoleTest {
 		attendantControlConsole.startUpStation();
 		
 		assertEquals(expected,attendantControlConsole.getStationStatus());
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.startUpStation();
+		});  
 	}
 	
 	// Attendant shuts down station
@@ -254,8 +365,47 @@ public class AttendentControlConsoleTest {
 		attendantControlConsole.shutDownStation();
 		
 		assertEquals(expected,attendantControlConsole.getStationStatus());
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.shutDownStation();
+		});  
 	}
 	
+	// Attendant adds new attendant to system
+	@Test
+	public void testAddEntry() {
+		boolean expected = true;
+		
+		attendantControlConsole.logIn("employee1", "1234");
+		boolean result = attendantControlConsole.addEntry("newEmployee", "4321");
+		
+		assertEquals(expected, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.addEntry("newEmployee", "4321");
+		});  
+	}
+	
+	// Attendant adds new attendant to system
+	@Test
+	public void testRemoveEntry() {
+		boolean expected = true;
+		
+		attendantControlConsole.logIn("employee1", "1234");
+		boolean result = attendantControlConsole.removeEntry("employee2");
+		
+		assertEquals(expected, result);
+		
+		attendantControlConsole.logOut();
+		
+		assertThrows(SoftwareException.class, () -> {
+			attendantControlConsole.removeEntry("employee2");
+		});  
+	}
 	
 	
 	

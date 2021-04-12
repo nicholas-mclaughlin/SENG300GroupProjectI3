@@ -26,16 +26,12 @@ import org.lsmr.software.DispenserController;
 import org.lsmr.software.Purchase;
 import org.lsmr.software.SoftwareController;
 import org.lsmr.software.SoftwareException;
-import org.lsmr.test.PaymentControllerTest.SoftwareControllerStub;
 
 public class AttendentControlConsoleTest {
 	private SelfCheckoutStation station;
 	private int[] banknoteDenominations = {5, 10, 20, 50, 100};
-//	private AttendantDataBase attendantDataBase; //??
 	private AttendantControlConsole attendantControlConsole;
 	private SoftwareControllerStub softwareControllerStub;
-//	private DatabaseController databaseController;
-//	private SoftwareController softwareController;
 
 	@Before
 	public void setUp() throws Exception {
@@ -46,11 +42,8 @@ public class AttendentControlConsoleTest {
         BigDecimal toonie = BigDecimal.valueOf(2);
         BigDecimal[] coinDenominations = new BigDecimal[]{nickel, dime, quarter, loonie, toonie};
 
-        // manufacture/assemble hardware, install/prepare firmware
-
         station = new SelfCheckoutStation(Currency.getInstance("CAD"), banknoteDenominations, coinDenominations, 300, 1);
         softwareControllerStub = new SoftwareControllerStub(station);
-        //softwareController = new SoftwareController(station);
         
         attendantControlConsole = new AttendantControlConsole(softwareControllerStub, station);
         
@@ -65,7 +58,7 @@ public class AttendentControlConsoleTest {
 		}
     }
 
-	// Testing login test
+	// Attendant login
 	@Test
 	public void testLoginSuccessful() {
 		boolean expected = true;
@@ -93,7 +86,7 @@ public class AttendentControlConsoleTest {
 		assertEquals(expected, result);
 	}
 
-	// Testing logout 
+	// Attendant logout
 	@Test
 	public void testLogoutSuccessful() {
 		boolean expected = true;
@@ -113,8 +106,7 @@ public class AttendentControlConsoleTest {
 		assertEquals(expected, result);
 	}
 	
-	// Attendant looks up product
-	// Test attendant looks up barcoded item
+	// Attendant looks up barcoded product
 	@Test
 	public void testLookUpBarcodedProduct(){
 		attendantControlConsole.logIn("employee1", "1234");
@@ -132,6 +124,16 @@ public class AttendentControlConsoleTest {
 		assertThrows(SoftwareException.class, () -> {
 			attendantControlConsole.attendantLookforBarcodedProdcut(code);
 		});  
+	}
+	
+	@Test
+	public void testLookUpBarcodedProductFailed(){
+		attendantControlConsole.logIn("employee1", "1234");
+		Barcode code = new Barcode("23232");
+        
+        Product result = attendantControlConsole.attendantLookforBarcodedProdcut(code);
+		
+		assertEquals(null, result);
 	}
 	
 	// Test attendant looks up PLU coded product
@@ -153,18 +155,32 @@ public class AttendentControlConsoleTest {
 		});  
 	}
 	
+	@Test
+	public void testLookUpPLUCodeFailed(){
+		attendantControlConsole.logIn("employee1", "1234");
+        PriceLookupCode code = new PriceLookupCode("5555");
+        
+		Product result = attendantControlConsole.attendantLookforPLUcodedProdcut(code);
+		
+		assertEquals(null, result);
+		
+	}
+	
 	// Attendant removes product
 	@Test
 	public void testRemoveProduct() {
 		attendantControlConsole.logIn("employee1", "1234");
         Barcode code = new Barcode("12345");
         BarcodedProduct product = new BarcodedProduct(code, "item1", new BigDecimal("10.00"));
+        Barcode code2 = new Barcode("54321");
+        BarcodedProduct product2 = new BarcodedProduct(code2, "item2", new BigDecimal("5.75"));
        
         Purchase purchase = new Purchase();
         purchase.addItem(product);
+        purchase.addItem(product2);
         attendantControlConsole.removeProdcutFromorder(purchase, product);
         
-        assertEquals(new BigDecimal("0"), purchase.getSubtotal());
+        assertEquals(new BigDecimal("5.75"), purchase.getSubtotal());
         
         attendantControlConsole.logOut();
 		
@@ -173,6 +189,7 @@ public class AttendentControlConsoleTest {
 		});  
 	}
 	
+	// INCOMPLETE
 	// Attendant adds paper
 	@Test
 	public void testAddPaper() {
@@ -191,6 +208,7 @@ public class AttendentControlConsoleTest {
 		});  
 	}
 	
+	// INCOMPLETE
 	@Test
 	public void testAddInk() {
 		attendantControlConsole.logIn("employee1", "1234");

@@ -64,6 +64,16 @@ public class ReceiptController {
 	public void printAll(String msg ) {
 		int i = 0;
 		while (i < msg.length()) {
+			if (outOfInk == true)  {
+				// prematurely stop printing and cut paper 
+				break;
+			}
+			
+			if (outOfPaper == true) {
+				// prematurely stop printing and cut paper 
+				break;
+			}
+			
 			printer.print(msg.charAt(i));
 			i++;
 		}

@@ -11,9 +11,13 @@ import org.lsmr.selfcheckout.Banknote;
 import org.lsmr.selfcheckout.Barcode;
 import org.lsmr.selfcheckout.Coin;
 import org.lsmr.selfcheckout.PriceLookupCode;
+import org.lsmr.selfcheckout.devices.AbstractDevice;
 import org.lsmr.selfcheckout.devices.OverloadException;
+import org.lsmr.selfcheckout.devices.ReceiptPrinter;
 import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
 import org.lsmr.selfcheckout.devices.SimulationException;
+import org.lsmr.selfcheckout.devices.listeners.AbstractDeviceListener;
+import org.lsmr.selfcheckout.devices.listeners.ReceiptPrinterListener;
 import org.lsmr.selfcheckout.products.BarcodedProduct;
 import org.lsmr.selfcheckout.products.PLUCodedProduct;
 import org.lsmr.selfcheckout.products.Product;
@@ -189,13 +193,45 @@ public class AttendentControlConsoleTest {
 		});  
 	}
 	
-	// INCOMPLETE
 	// Attendant adds paper
 	@Test
 	public void testAddPaper() {
 		attendantControlConsole.logIn("employee1", "1234");
-		attendantControlConsole.addPaper(10);
 		
+		class recieptPrinterListenerStub implements ReceiptPrinterListener{
+			public int addedPaper = 0;
+			
+			@Override
+			public void enabled(AbstractDevice<? extends AbstractDeviceListener> device) {
+
+			}
+
+			@Override
+			public void disabled(AbstractDevice<? extends AbstractDeviceListener> device) {
+			}
+
+			@Override
+			public void outOfPaper(ReceiptPrinter printer) {
+			}
+
+			@Override
+			public void outOfInk(ReceiptPrinter printer) {
+			}
+
+			@Override
+			public void paperAdded(ReceiptPrinter printer) {
+				addedPaper++;
+			}
+
+			@Override
+			public void inkAdded(ReceiptPrinter printer) {
+			}
+		}
+		
+		recieptPrinterListenerStub stub = new recieptPrinterListenerStub();
+		station.printer.register(stub);
+		attendantControlConsole.addPaper(10);
+		assertEquals(1, stub.addedPaper);
 		
 		assertThrows(SimulationException.class, () -> {
 			 attendantControlConsole.addPaper(2000);
@@ -212,8 +248,40 @@ public class AttendentControlConsoleTest {
 	@Test
 	public void testAddInk() {
 		attendantControlConsole.logIn("employee1", "1234");
-		attendantControlConsole.addInk(10);
 		
+		class recieptPrinterListenerStub implements ReceiptPrinterListener{
+			public int addedInk = 0;
+			
+			@Override
+			public void enabled(AbstractDevice<? extends AbstractDeviceListener> device) {
+			}
+
+			@Override
+			public void disabled(AbstractDevice<? extends AbstractDeviceListener> device) {
+			}
+
+			@Override
+			public void outOfPaper(ReceiptPrinter printer) {
+			}
+
+			@Override
+			public void outOfInk(ReceiptPrinter printer) {
+			}
+
+			@Override
+			public void paperAdded(ReceiptPrinter printer) {
+			}
+
+			@Override
+			public void inkAdded(ReceiptPrinter printer) {
+				addedInk++;
+			}
+		}
+		
+		recieptPrinterListenerStub stub = new recieptPrinterListenerStub();
+		station.printer.register(stub);
+		attendantControlConsole.addInk(10);
+		assertEquals(1, stub.addedInk);
 		
 		assertThrows(SimulationException.class, () -> {
 			 attendantControlConsole.addInk(2000000);

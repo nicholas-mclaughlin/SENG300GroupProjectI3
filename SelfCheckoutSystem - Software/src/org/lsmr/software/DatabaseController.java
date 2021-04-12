@@ -2,7 +2,9 @@ package org.lsmr.software;
 
 import org.lsmr.selfcheckout.Barcode;
 import org.lsmr.selfcheckout.BarcodedItem;
+import org.lsmr.selfcheckout.PriceLookupCode;
 import org.lsmr.selfcheckout.products.BarcodedProduct;
+import org.lsmr.selfcheckout.products.PLUCodedProduct;
 
 /**
  * Only used with our database for testing right now
@@ -24,6 +26,14 @@ public class DatabaseController {
             return -1;
         }
     }
+    
+    public double getExpectedWeight(PriceLookupCode pluProductCode) {
+        try {
+            return database.PLU_PRODUCT_DATABASE.get(pluProductCode).expectedWeight;
+        } catch (NullPointerException n) {
+            return -1;
+        }
+    }
 
     public BarcodedProduct getBarcodedProduct(Barcode barcode) {
         try {
@@ -32,4 +42,13 @@ public class DatabaseController {
             return null;
         }
     }
+    
+    public PLUCodedProduct getpluCodedProduct(PriceLookupCode pluProductCode) {
+        try {
+            return database.PLU_PRODUCT_DATABASE.get(pluProductCode).pluCodedProduct;
+        } catch (NullPointerException n) {
+            return null;
+        }
+    }
+    
 }

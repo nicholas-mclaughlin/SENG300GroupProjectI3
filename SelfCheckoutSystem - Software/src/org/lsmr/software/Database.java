@@ -1,5 +1,6 @@
 package org.lsmr.software;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,5 +42,11 @@ public class Database {
     
     
     public static final Map<String, CardIssuer> BANK_CARD_DATABASE = new HashMap<>();
+    
+    /*
+     * Database for giftCard
+     */
+    
+    public static final Map<String, BigDecimal> GIFT_CARD_DATABASE = new HashMap<>();
     
 }

@@ -79,6 +79,9 @@ public class BaggingAreaController {
 	public double getExpectedItemWeight() {
 		return expectedItemWeight;
 	}	
+	public void setExpectedItemWeight(double w) {
+		this.expectedItemWeight = w;
+	}
 	
 	public PersonalBaggingListener getPersonalBaggingListener() {
 		return personalBaggingListener;
@@ -122,6 +125,27 @@ public class BaggingAreaController {
 			scanController.continueScanning();
 		}
     }
+	
+	/*
+	 * GUI: customer pressed skip bagging item 
+	 */
+	public void skipBaggingItem (double changeInWeight) {
+		if(isBaggingPhase == true) {
+			setExpectedItemWeight(0.0); //set expected Item weight = 0.0 because customer skipped bagging Item
+			if ( (expectedItemWeight - changeInWeight) < 0.03) { // change in weight close to 0.0
+				totalWeight += changeInWeight;
+				isBaggingPhase = false; // set bagging phase to false
+				baggingReminder.cancel();
+				bagItemOverdue = false;
+				scanController.continueScanning();
+			}
+			else {
+				System.out.println("Item weight doesn't match expected weight. Please remove item and try again");
+				unknownWeight += changeInWeight;				
+			}
+		}
+		
+	}
 	
 	
 	public void startRemovingItem(double expectedWeight) {

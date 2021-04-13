@@ -1,4 +1,6 @@
-package hahashdkj;
+package org.lsmr.software;
+import org.lsmr.selfcheckout.*;
+import org.lsmr.selfcheckout.devices.*;
 
 public class WeightDiscrepencyApproval {
 	
@@ -38,7 +40,7 @@ public class WeightDiscrepencyApproval {
 	public boolean approve() {
 		
 		//from attendant console
-		return login();
+		return logIn();
 		
 	}
 	

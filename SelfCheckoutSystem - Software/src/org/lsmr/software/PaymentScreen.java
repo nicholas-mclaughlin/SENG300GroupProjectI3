@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -28,18 +27,25 @@ import javax.swing.border.LineBorder;
 
 import org.lsmr.selfcheckout.devices.TouchScreen;
 
-public class ScanningScreen {
+public class PaymentScreen {
 	
 	private JPanel screen;
 	private JFrame frame;
-	private JPanel paymentScreen;
-	private JPanel bagNumScreen;
-	boolean haveBag = StartScreen.isHaveBag();
+	JPanel creditScreen;
+	JPanel debitScreen;
+	JPanel cashScreen;
+	JPanel giftCardScreen;
+	JPanel memberScreen;
 	
-	public ScanningScreen(int screenWidth, int screenHeight, JFrame frame, JPanel bagNumScreen ,JPanel paymentScreen) {
+	
+	public PaymentScreen(int screenWidth, int screenHeight, JFrame frame, JPanel creditScreen, JPanel debitScreen, JPanel cashScreen, JPanel giftCardScreen, JPanel memberScreen) {
+		
 		this.frame = frame;
-		this.paymentScreen = paymentScreen;
-		this.bagNumScreen = bagNumScreen;
+		this.creditScreen = creditScreen;
+		this.debitScreen = debitScreen;
+		this.cashScreen = cashScreen;
+		this.giftCardScreen = giftCardScreen;
+		this.memberScreen = memberScreen;
 		
 		screen = new JPanel();
 		screen.setSize(screenWidth, screenHeight);
@@ -115,41 +121,7 @@ public class ScanningScreen {
 		totalAmount.setPreferredSize(new Dimension((int)(listWidth*0.68), (int)(listHeight*0.08)));
 		totalAmount.setMaximumSize(new Dimension((int)(listWidth*0.68), (int)(listHeight*0.08)));
 		
-		
-		finish.setLayout(new BoxLayout(finish, BoxLayout.LINE_AXIS));
-		JButton finishButton = new JButton("Finish and Pay");
-		
-		finishButton.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		    	 if(haveBag == true) {
-		    		 //System.out.print(haveBag);
-		    		 frame.getContentPane().removeAll();
-			    	 frame.add(paymentScreen);
-			    	 frame.revalidate();
-			    	 frame.repaint();
-		    	 }
-		    	 else {
-		    		 //System.out.print(haveBag);
-		    		 frame.getContentPane().removeAll();
-			    	 frame.add(bagNumScreen);
-			    	 frame.revalidate();
-			    	 frame.repaint();
-		    	 }
-		    	 
-		    }
-		});
-		
-		finish.add(Box.createHorizontalGlue());
-		finish.add(finishButton);
-		finishButton.setMinimumSize(new Dimension((int)(listWidth*0.6), (int)(listHeight*0.13)));
-		finishButton.setPreferredSize(new Dimension((int)(listWidth*0.6), (int)(listHeight*0.13)));
-		finishButton.setMaximumSize(new Dimension((int)(listWidth*0.6), (int)(listHeight*0.13)));
-		finishButton.setBackground(Color.GREEN);
-		finishButton.setBorder(new LineBorder(Color.GREEN, 1, true));
-		finishButton.setFont(new Font("Arial", Font.PLAIN, 60));
-		
-		
+			
 		
 		int rightPanelWidth = (int)(screenWidth*0.55);
 		int rightPanelHeight = screenHeight;
@@ -162,7 +134,7 @@ public class ScanningScreen {
 		list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		Path currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/scanning.jpg");
+		Path currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/paymentOptions.jpg");
 		String path = currentRelativePath.toAbsolutePath().toString();
 		
 		BufferedImage img = null;
@@ -172,20 +144,20 @@ public class ScanningScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel scanningImage = new JLabel();
-		int scanningImageWidth = (int)(rightPanelWidth*0.55);
-		int scanningImageHeight = (int)(rightPanelHeight*0.44);
+		JLabel paymentImage = new JLabel();
+		int paymentImageWidth = (int)(rightPanelWidth*0.80);
+		int paymentImageHeight = (int)(rightPanelHeight*0.44);
 		
-		Image sImage = img.getScaledInstance(scanningImageWidth, scanningImageHeight,
+		Image sImage = img.getScaledInstance(paymentImageWidth, paymentImageHeight,
 		        Image.SCALE_SMOOTH);
-		scanningImage.setIcon(new ImageIcon(sImage));
+		paymentImage.setIcon(new ImageIcon(sImage));
 		
-		JLabel scanItemLabel = new JLabel("Please Scan an Item");
-		scanItemLabel.setMinimumSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
-		scanItemLabel.setPreferredSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
-		scanItemLabel.setMaximumSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
-		scanItemLabel.setForeground(Color.gray);
-		scanItemLabel.setFont(new Font("Serif", Font.PLAIN, (int)(rightPanelHeight*0.03)));
+		JLabel paymentMethodLabel = new JLabel("Please Choose a Payment method");
+		paymentMethodLabel.setMinimumSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
+		paymentMethodLabel.setPreferredSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
+		paymentMethodLabel.setMaximumSize(new Dimension((int)(rightPanelWidth*0.55), (int)(rightPanelHeight*0.03)));
+		paymentMethodLabel.setForeground(Color.gray);
+		paymentMethodLabel.setFont(new Font("Serif", Font.PLAIN, (int)(rightPanelHeight*0.03)));
 		
 		
 		JPanel selectionsPanels = new JPanel();
@@ -197,176 +169,221 @@ public class ScanningScreen {
 		int selectionImageWidth = (int)(rightPanelWidth*0.17);
 		int selectionImageHeight = (int)(rightPanelHeight*0.17);
 		
-		JPanel fruitsPanel = new JPanel();
-		fruitsPanel.setLayout(new BoxLayout(fruitsPanel, BoxLayout.PAGE_AXIS));
+		JPanel creditPanel = new JPanel();
+		creditPanel.setLayout(new BoxLayout(creditPanel, BoxLayout.PAGE_AXIS));
 		
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/banana.jpg");
+		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/credit.jpg");
 		path = currentRelativePath.toAbsolutePath().toString();
-		BufferedImage fimg = null;
+		BufferedImage cimg = null;
 		try {
-			fimg = ImageIO.read(new File(path));
+			cimg = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton fruitsImage = new JButton();
+		JButton creditImage = new JButton();
+		creditImage.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	 frame.getContentPane().removeAll();
+		    	 frame.add(creditScreen);
+		    	 frame.revalidate();
+		    	 frame.repaint();
+		    }
+		});
 		
-		Image fImage = fimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
+		Image cImage = cimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
 		        Image.SCALE_SMOOTH);
-		fruitsImage.setIcon(new ImageIcon(fImage));
+		creditImage.setIcon(new ImageIcon(cImage));
 		
-		JLabel fruitsLabel = new JLabel("Fruits and Vegetables");
+		JLabel creditLabel = new JLabel("Credit Card");
+		creditLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
 		
-		fruitsLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
-		
-		fruitsPanel.add(fruitsImage);
-		fruitsPanel.add(fruitsLabel);
-		selectionsPanels.add(fruitsPanel);
-		fruitsImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		fruitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		creditPanel.add(creditImage);
+		creditPanel.add(creditLabel);
+		selectionsPanels.add(creditPanel);
+		creditImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		creditLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 
 
-		JPanel bakeryPanel = new JPanel();
-		bakeryPanel.setLayout(new BoxLayout(bakeryPanel, BoxLayout.PAGE_AXIS));
+		JPanel debitPanel = new JPanel();
+		debitPanel.setLayout(new BoxLayout(debitPanel, BoxLayout.PAGE_AXIS));
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/bread.jpg");
+		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/debit.jpg");
 		path = currentRelativePath.toAbsolutePath().toString();
-		BufferedImage bimg = null;
+		BufferedImage dimg = null;
 		try {
-			bimg = ImageIO.read(new File(path));
+			dimg = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton bakeryImage = new JButton();
+		JButton debitImage = new JButton();
+		debitImage.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	 frame.getContentPane().removeAll();
+		    	 frame.add(debitScreen);
+		    	 frame.revalidate();
+		    	 frame.repaint();
+		    }
+		});
 		
-		Image bImage = bimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
+		Image bImage = dimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
 		        Image.SCALE_SMOOTH);
-		bakeryImage.setIcon(new ImageIcon(bImage));
+		debitImage.setIcon(new ImageIcon(bImage));
 		
-		JLabel bakeryLabel = new JLabel("Bakery");
+		JLabel debitLabel = new JLabel("Debit Card");
+		debitLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
 		
-		bakeryLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
-		
-		bakeryPanel.add(bakeryImage);
-		bakeryPanel.add(bakeryLabel);
+		debitPanel.add(debitImage);
+		debitPanel.add(debitLabel);
 
-		selectionsPanels.add(bakeryPanel);
-		bakeryImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bakeryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		selectionsPanels.add(debitPanel);
+		debitImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		debitLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 		
-		JPanel otherPanel = new JPanel();
-		otherPanel.setLayout(new BoxLayout(otherPanel, BoxLayout.PAGE_AXIS));
+		JPanel cashPanel = new JPanel();
+		cashPanel.setLayout(new BoxLayout(cashPanel, BoxLayout.PAGE_AXIS));
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/qmark.png");
+		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/cash.jpg");
 		path = currentRelativePath.toAbsolutePath().toString();
-		BufferedImage oimg = null;
+		BufferedImage chimg = null;
 		try {
-			oimg = ImageIO.read(new File(path));
+			chimg = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton otherImage = new JButton();
+		JButton cashImage = new JButton();
+		cashImage.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	 frame.getContentPane().removeAll();
+		    	 frame.add(cashScreen);
+		    	 frame.revalidate();
+		    	 frame.repaint();
+		    }
+		});
 		
-		Image oImage = oimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
+		Image casImage = chimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
 		        Image.SCALE_SMOOTH);
-		otherImage.setIcon(new ImageIcon(oImage));
+		cashImage.setIcon(new ImageIcon(casImage));
 		
-		JLabel otherLabel = new JLabel("Other");
-		otherLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
+		JLabel cashLabel = new JLabel("Pay With Cash");
+		cashLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
 		
-		otherPanel.add(otherImage);
-		otherPanel.add(otherLabel);
+		cashPanel.add(cashImage);
+		cashPanel.add(cashLabel);
 		
-		selectionsPanels.add(otherPanel);
-		otherImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		otherLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		selectionsPanels.add(cashPanel);
+		cashImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		cashLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 		
-		JPanel barcodePanel = new JPanel();
-		barcodePanel.setLayout(new BoxLayout(barcodePanel, BoxLayout.PAGE_AXIS));
+		JPanel membershipPanel = new JPanel();
+		membershipPanel.setLayout(new BoxLayout(membershipPanel, BoxLayout.PAGE_AXIS));
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/barcode.jpg");
+		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/membership.jpg");
 		path = currentRelativePath.toAbsolutePath().toString();
-		BufferedImage barimg = null;
+		BufferedImage mimg = null;
 		try {
-			barimg = ImageIO.read(new File(path));
+			mimg = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton barcodeImage = new JButton();
+		JButton membershipImage = new JButton();
+		membershipImage.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	 frame.getContentPane().removeAll();
+		    	 frame.add(memberScreen);
+		    	 frame.revalidate();
+		    	 frame.repaint();
+		    }
+		});
 		
-		Image barImage = barimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
+		Image memImage = mimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
 		        Image.SCALE_SMOOTH);
-		barcodeImage.setIcon(new ImageIcon(barImage));
+		membershipImage.setIcon(new ImageIcon(memImage));
 		
-		JLabel barcodeLabel = new JLabel("Enter Barcode");
-		barcodeLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
+		JLabel membershipLabel = new JLabel("MemberShip Card");
+		membershipLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
 		
-		barcodePanel.add(barcodeImage);
-		barcodePanel.add(barcodeLabel);
+		membershipPanel.add(membershipImage);
+		membershipPanel.add(membershipLabel);
 		
-		selectionsPanels.add(barcodePanel);
-		barcodeImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		barcodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		selectionsPanels.add(membershipPanel);
+		membershipImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		membershipLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 		
-		JPanel bagPanel = new JPanel();
-		bagPanel.setLayout(new BoxLayout(bagPanel, BoxLayout.PAGE_AXIS));
+		JPanel giftcardPanel = new JPanel();
+		giftcardPanel.setLayout(new BoxLayout(giftcardPanel, BoxLayout.PAGE_AXIS));
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
-		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/bag.jpg");
+		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/giftcard.jpg");
 		path = currentRelativePath.toAbsolutePath().toString();
-		BufferedImage bagimg = null;
+		BufferedImage gcimg = null;
 		try {
-			bagimg = ImageIO.read(new File(path));
+			gcimg = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton bagImage = new JButton();
+		JButton giftcardImage = new JButton();
+		giftcardImage.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	 frame.getContentPane().removeAll();
+		    	 frame.add(giftCardScreen);
+		    	 frame.revalidate();
+		    	 frame.repaint();
+		    }
+		});
 		
-		Image baImage = bagimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
+		Image gcImage = gcimg.getScaledInstance(selectionImageWidth, selectionImageHeight,
 		        Image.SCALE_SMOOTH);
-		bagImage.setIcon(new ImageIcon(baImage));
+		giftcardImage.setIcon(new ImageIcon(gcImage));
 		
-		JLabel bagLabel = new JLabel("Add Own Bag");
-		bagLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
+		JLabel giftcardLabel = new JLabel("Gift Card");
+		giftcardLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));
 		
-		bagPanel.add(bagImage);
-		bagPanel.add(bagLabel);
+		giftcardPanel.add(giftcardImage);
+		giftcardPanel.add(giftcardLabel);
 		
-		selectionsPanels.add(bagPanel);
-		bagImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bagLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		selectionsPanels.add(giftcardPanel);
+		giftcardImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		giftcardLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
-		rightPanel.add(Box.createRigidArea(new Dimension(0, (int)(rightPanelHeight*0.06))));
-		rightPanel.add(scanningImage);
+		rightPanel.add(Box.createRigidArea(new Dimension((int)(rightPanelHeight*0.1), (int)(rightPanelHeight*0.06))));
+		rightPanel.add(paymentImage);
 		rightPanel.add(Box.createRigidArea(new Dimension(0, (int)(rightPanelHeight*0.02))));
-		rightPanel.add(scanItemLabel);
+		rightPanel.add(paymentMethodLabel);
 		rightPanel.add(Box.createRigidArea(new Dimension(0, (int)(rightPanelHeight*0.01))));
 		rightPanel.add(selectionsPanels);
 		
-		scanningImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		scanItemLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		paymentImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		paymentMethodLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		selectionsPanels.setAlignmentX(Component.CENTER_ALIGNMENT);
 	}
 	
 	public JPanel getScreen() {
 		return screen;
 	}
+
+
 }

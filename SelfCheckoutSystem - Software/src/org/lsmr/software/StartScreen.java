@@ -1,6 +1,7 @@
 package org.lsmr.software;
 
 import java.awt.Color;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,9 +25,11 @@ import javax.swing.JPanel;
 
 import org.lsmr.selfcheckout.devices.TouchScreen;
 
+
 public class StartScreen {
 
 	private JPanel screen;
+	private static boolean haveBag;
 	private JPanel scanningScreen;
 	private JFrame frame;
 	
@@ -93,6 +96,8 @@ public class StartScreen {
 		startButton.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	 setHaveBag(false);
+		    	 //System.out.print(haveBag);
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(scanningScreen);
 		    	 frame.revalidate();
@@ -104,6 +109,8 @@ public class StartScreen {
 		ownBaggingButton.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	 setHaveBag(true);
+		    	 //System.out.print(haveBag);
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(scanningScreen);
 		    	 frame.revalidate();
@@ -133,7 +140,18 @@ public class StartScreen {
 		ownBaggingButton.setFont(new Font("Arial", Font.PLAIN, (int)(rightPanelHeight*0.03)));
 	}
 	
+	
 	public JPanel getScreen() {
 		return screen;
+	}
+
+
+	public static boolean isHaveBag() {
+		return haveBag;
+	}
+
+
+	public static void setHaveBag(boolean haveBag) {
+		StartScreen.haveBag = haveBag;
 	}
 }

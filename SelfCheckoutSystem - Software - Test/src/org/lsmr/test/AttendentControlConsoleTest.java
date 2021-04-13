@@ -244,7 +244,7 @@ public class AttendentControlConsoleTest {
 		});  
 	}
 	
-	// INCOMPLETE
+	// Attendant adds paper
 	@Test
 	public void testAddInk() {
 		attendantControlConsole.logIn("employee1", "1234");

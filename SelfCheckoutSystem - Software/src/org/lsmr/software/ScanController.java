@@ -31,6 +31,12 @@ public class ScanController {
 		baggingAreaController = bac;
 	}
 	
+		// Called by TouchScreenListener in GUI if customer enters product code for this item
+	public void blockNextScan() {
+		isItemScanningPhase = false;
+	}
+	
+	
 	public void beginScan() {
 		current_purchase = new Purchase();
 		isScanningPhase = true;

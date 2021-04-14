@@ -93,7 +93,7 @@ public class MembershipScreen {
 		
 		JTextField bagNum = new JTextField();
 		bagNum.setHorizontalAlignment(SwingConstants.CENTER);
-		bagNum.setFont(new Font("Serif", Font.PLAIN, 100));
+		bagNum.setFont(new Font("Serif", Font.PLAIN, (int)(rightPanelHeight*0.05)));
 		
 		bagNum.setMinimumSize(new Dimension((int)(rightPanelWidth*0.35), (int)(rightPanelHeight*0.08)));
 		bagNum.setPreferredSize(new Dimension((int)(rightPanelWidth*0.35), (int)(rightPanelHeight*0.08)));
@@ -222,8 +222,8 @@ public class MembershipScreen {
 		    }
 		});
 		
-		Font newButtonFont=new Font(button1.getFont().getName(),button1.getFont().getStyle(),100);
-		Font smallButtonFont=new Font(buttonClear.getFont().getName(),buttonClear.getFont().getStyle(),60);
+		Font newButtonFont=new Font(button1.getFont().getName(),button1.getFont().getStyle(),(int)(rightPanelHeight*0.05));
+		Font smallButtonFont=new Font(buttonClear.getFont().getName(),buttonClear.getFont().getStyle(),(int)(rightPanelHeight*0.02));
 
 		
 		button1.setFont(newButtonFont);

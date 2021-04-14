@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import org.lsmr.selfcheckout.devices.TouchScreen;
 
@@ -32,6 +33,7 @@ public class StartScreen {
 	private static boolean haveBag;
 	private JPanel scanningScreen;
 	private JFrame frame;
+	
 	
 	public StartScreen(int screenWidth, int screenHeight, JFrame frame, JPanel scanningScreen) {
 		this.frame = frame;
@@ -109,7 +111,10 @@ public class StartScreen {
 		ownBaggingButton.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	 setHaveBag(true);
+		    	setHaveBag(true);
+		    	Object[] options = { "DONE"};
+	            int name = JOptionPane.showOptionDialog(null, "Click DONE when finished", "Add Own Bags to Bagging Area",
+	            JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, options, options[0]);
 		    	 //System.out.print(haveBag);
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(scanningScreen);

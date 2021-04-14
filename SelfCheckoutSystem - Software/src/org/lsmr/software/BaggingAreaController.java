@@ -1,5 +1,6 @@
 package org.lsmr.software;
 
+import org.lsmr.selfcheckout.BarcodedItem;
 import org.lsmr.selfcheckout.Item;
 import org.lsmr.selfcheckout.devices.AbstractDevice;
 import org.lsmr.selfcheckout.devices.ElectronicScale;
@@ -129,11 +130,11 @@ public class BaggingAreaController {
 	/*
 	 * GUI: customer pressed skip bagging item 
 	 */
-	public void skipBaggingItem (double changeInWeight) {
+	public void skipBaggingItem (BarcodedItem i) {
+		double changeInWeight = i.getWeight();
 		if(isBaggingPhase == true) {
-			setExpectedItemWeight(0.0); //set expected Item weight = 0.0 because customer skipped bagging Item
-			if ( (expectedItemWeight - changeInWeight) < 0.03) { // change in weight close to 0.0
-				totalWeight += changeInWeight;
+			if ( (expectedItemWeight - changeInWeight) < 0.01) { // change in weight close to 0.0
+				totalWeight += 0; // total Weight does not change 
 				isBaggingPhase = false; // set bagging phase to false
 				baggingReminder.cancel();
 				bagItemOverdue = false;

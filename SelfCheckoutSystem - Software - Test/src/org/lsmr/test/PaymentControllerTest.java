@@ -507,6 +507,7 @@ public class PaymentControllerTest {
 	   }
 	   
    }
+  
    
    @Test
    public void testInsertWithCardDetected() {
@@ -646,6 +647,31 @@ public class PaymentControllerTest {
         assertEquals(total, total);    	
     }
    
+    @Test
+    public void testGiftCardTransaction() {
+    
+    BigDecimal subtotal = new BigDecimal("31.50"); // with GST: 33.08
+    Card card = new Card("GiftCard", "1234", "Paul Walker", "123", "0000", true, true );
+    paymentController.GIFT_CARD_DATABASE.put("1234", new BigDecimal(50.0));
+    
+    paymentController.beginPayment(subtotal, softwareControllerStub);
+    BigDecimal total = paymentController.getTotal();
+    
+    try {
+    	paymentController.setPaymentType(3);
+		station.cardReader.tap(card);
+		
+    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		// shouldn't happen
+		fail("Shouldn't happen");
+		}
+    
+    assertEquals(total, total); 
+    
+    	
+    }
    
     @Test
     public void testNotEnoughPaymentO() {

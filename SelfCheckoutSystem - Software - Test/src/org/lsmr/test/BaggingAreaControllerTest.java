@@ -426,6 +426,38 @@ public class BaggingAreaControllerTest {
         station.scale.remove(i1);
         assertFalse(baggingAreaController.getOverloaded());
 	}
-	
+	@Test
+	public void skipBaggingItem1() {
+		Barcode b1 = new Barcode("12345");
+		BarcodedItem i1 = new BarcodedItem(b1, 40);
+		baggingAreaController = new BaggingAreaController(station.scale);
+	    baggingAreaController.setScanController(scanController);
+	    
+	    baggingAreaController.startBaggingItem(40);
+		baggingAreaController.skipBaggingItem(i1); 
+		assertEquals(baggingAreaController.getTotalWeight(), 0, 0);
+		assertEquals(baggingAreaController.getExpectedItemWeight(), 40, 0);
+		assertEquals(baggingAreaController.getUnknownWeight(), 0, 0);
+		assertFalse(baggingAreaController.getIsRemovingPhase());
+			
+	}
+	@Test
+	public void skipBaggingItem2() {
+		Barcode b1 = new Barcode("12345");
+		BarcodedItem i1 = new BarcodedItem(b1, 500);
+		baggingAreaController = new BaggingAreaController(station.scale);
+		baggingAreaController.setScanController(scanController);
+		    
+		baggingAreaController.startBaggingItem(500);
+		baggingAreaController.skipBaggingItem(i1); 
+		assertEquals(baggingAreaController.getTotalWeight(), 0, 0);
+		assertEquals(baggingAreaController.getExpectedItemWeight(), 500, 0);
+		assertEquals(baggingAreaController.getUnknownWeight(), 0, 0);
+		assertFalse(baggingAreaController.getIsRemovingPhase());
+			
+	}
+
+
+
 	
 }

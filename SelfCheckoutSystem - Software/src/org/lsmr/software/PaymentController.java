@@ -65,9 +65,6 @@ public class PaymentController {
     private Map<Integer, BDispenserListener> banknoteDispenserListeners = new HashMap<>();
 
     public Map<String, CardIssuer> BANK_CARD_DATABASE = Database.BANK_CARD_DATABASE;
-    public Map<String, BigDecimal> GIFT_CARD_DATABASE = Database.GIFT_CARD_DATABASE;
-
-    
     
     public PaymentController(CoinValidator cv, CoinTray ct, CoinSlot cSlot, CoinStorageUnit cStorage, Map<BigDecimal, CoinDispenser> cDispensers,
                              BanknoteValidator bv, BanknoteSlot bSlot, BanknoteStorageUnit bStorage, Map<Integer, BanknoteDispenser> bDispensers,
@@ -504,7 +501,7 @@ public class PaymentController {
     	
     }
     
-    // Payment type (0 is default, 1 is coin, 2 is card, 3 is gift card)
+    // Payment type (0 is default, 1 is coin, 2 is card)
     // Can't change payment type once you begin making that payment
     // In full implementation, customer would indicate payment type
     public void setPaymentType(int type) {
@@ -514,7 +511,7 @@ public class PaymentController {
     // Informed of card inserted in card reader event
     // Ignore if not in payment phase, or if payment type is not set to card
     public void informCardInserted() {
-    	if ((isPaymentPhase) && (paymentType == 2  || paymentType == 3)) {
+    	if ((isPaymentPhase) && (paymentType == 2)) {
     		
     	}
     }
@@ -523,7 +520,7 @@ public class PaymentController {
     // Informed of card tapped event
     // Ignore if not in payment phase
     public void informCardTapped() {
-    	if ((isPaymentPhase) && (paymentType == 2 || paymentType == 3)) {
+    	if ((isPaymentPhase) && (paymentType == 2)) {
     		
     	}
     }
@@ -531,7 +528,7 @@ public class PaymentController {
     // Informed of card swiped event
     // Ignore if not in payment phase
     public void informCardSwiped() {
-    	if ((isPaymentPhase) && (paymentType == 2 || paymentType == 3)) {
+    	if ((isPaymentPhase) && (paymentType == 2)) {
     		
     	}
     }
@@ -565,35 +562,6 @@ public class PaymentController {
     	paymentType = 0;
     	endPayment();
     }
-    
-    public void analyseGiftCardData() {
-    	CardData data = cardReaderListener.transmitCardData();
-    	if(data == null) {
-    		System.out.println("Error reading card. Please try again.");
-    	}
-    	if (data.getType() == "GiftCard" && Database.GIFT_CARD_DATABASE.containsKey(data.getNumber()));{
-    		
-    		BigDecimal giftCardValue = Database.GIFT_CARD_DATABASE.get(data.getNumber());
-    		
-    		if(total.compareTo(giftCardValue) < 0) {
-    			Database.GIFT_CARD_DATABASE.put(data.getNumber(), giftCardValue.subtract(total));
-    			amountPaid = giftCardValue;
-    			total = BigDecimal.ZERO; 
-    			paymentType = 0;
-    			endPayment();
-    		}
-    		else {
-    			Database.GIFT_CARD_DATABASE.put(data.getNumber(), BigDecimal.ZERO);
-    			amountPaid = giftCardValue;
-    			total = total.subtract(giftCardValue);
-    			paymentType = 0;
-    			endPayment();
-    		}
-   
-    	}
-    	
-    }
-    
 
     /**
      * Initiates the payment process by calculating the total to be paid

@@ -24,15 +24,10 @@ public class BlockStation {
 	private CoinValidator cv;
 	private ElectronicScale es;
 	private ReceiptPrinter rp;
-	private ScanController scanController;
-    private BaggingAreaController baggingAreaController;
-    private DatabaseController databaseController;
-    private PaymentController paymentController;
 
-	public BlockStation(SelfCheckoutStation sc, BanknoteDispenser bnd, Acceptor a, BankoteSlot bns, BanknoteStorageUnit bnsu, BanknoteValidator bnv, 
-			BarcodeScanner bcs, BidirectionalChannel bic, CardReader cr, CoinDispenser cd, CoinSlot cs, CoinStorageUnit csu, CoinTray ct, 
-			CoinValidator cv, ElectronicScale es, ReceiptPrinter rp, ScanController scanController, BaggingAreaController baggingAreaController, DatabaseController
-			databaseController, PaymentController paymentController) {
+	public BlockStation(SelfCheckoutStation sc, BanknoteDispenser bnd, BankoteSlot bns, BanknoteStorageUnit bnsu, BanknoteValidator bnv, 
+			BarcodeScanner bcs, CardReader cr, CoinDispenser cd, CoinSlot cs, CoinStorageUnit csu, CoinTray ct, 
+			CoinValidator cv, ElectronicScale es, ReceiptPrinter rpr) {
 		
 			this.sc = sc;
 			this.bnd = bnd;
@@ -47,18 +42,7 @@ public class BlockStation {
 			this.ct = ct;
 			this.cv = cv;
 			this.es = es;
-			this.ee = ee;
-			this.fte = fte;
-			this.fse = fse;
-			this.oe = oe;
 			this.rp = rp;
-			this.se = se;
-			this.ts = ts;
-			this.udc = udc;
-			this.scanController = scanController;
-			this.baggingAreaController = baggingAreaController;
-			this.databaseController = databaseController;
-			this.paymentController = paymentController;
 		
 		
 		
@@ -79,10 +63,7 @@ public class BlockStation {
 		cv.disable();
 		es.disable();
 		rp.disable();
-		scanController.disable();
-		baggingAreaController.disable();
-		databaseController.disable();
-		paymentController.disable();
+		
 		
 		
 		
@@ -104,10 +85,7 @@ public class BlockStation {
 		cv.enable();
 		es.enable();
 		rp.enable();
-		scanController.enable();
-		baggingAreaController.enable();
-		databaseController.enable();
-		paymentController.enable();
+	
 		
 	}
 	

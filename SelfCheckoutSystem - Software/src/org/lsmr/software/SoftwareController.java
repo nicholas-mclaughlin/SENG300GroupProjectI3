@@ -60,4 +60,9 @@ public class SoftwareController {
         receiptController.printReceipt(currentPurchase);
         currentPurchase = null;
     }
+
+    public SelfCheckoutStation getStation(){
+        return this.station;
+    }
+    public DatabaseController getDatabaseController(){return this.databaseController;}
 }

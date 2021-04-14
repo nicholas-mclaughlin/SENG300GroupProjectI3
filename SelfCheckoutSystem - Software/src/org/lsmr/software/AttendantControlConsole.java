@@ -62,7 +62,7 @@ public class AttendantControlConsole {
     //attendant look up price looking up coded product
     public Product attendantLookforPLUcodedProdcut(PriceLookupCode pluCode){
         if (currentAttendant == null) throw new SoftwareException("Log in required");
-        return centre.getDatabaseController().getPLUcodedProduct(pluCode);
+        return centre.getDatabaseController().getPLUcodedProduct(pluCode);	
     }
 
     //attedant remove a prodcut from order

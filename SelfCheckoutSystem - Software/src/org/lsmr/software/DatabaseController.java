@@ -26,6 +26,14 @@ public class DatabaseController {
             return -1;
         }
     }
+    
+    public double getExpectedWeight(PriceLookupCode pluProductCode) {
+        try {
+            return database.PLU_PRODUCT_DATABASE.get(pluProductCode).expectedWeight;
+        } catch (NullPointerException n) {
+            return -1;
+        }
+    }
 
     public BarcodedProduct getBarcodedProduct(Barcode barcode) {
         try {
@@ -35,9 +43,19 @@ public class DatabaseController {
         }
     }
 
+    // Armeen's method
+    public PLUCodedProduct getpluCodedProduct(PriceLookupCode pluProductCode) {
+        try {
+            return database.PLU_PRODUCT_DATABASE.get(pluProductCode).pluCodedProduct;
+        } catch (NullPointerException n) {
+            return null;
+        }
+    }
+    
+    // Wei's method
     public PLUCodedProduct getPLUcodedProduct(PriceLookupCode pluCode) {
         try {
-            return  database.PLU_PRODUCT_DATABASE.get(pluCode);
+            return  database.PLU_PRODUCT_DATABASE1.get(pluCode);
         } catch (NullPointerException n) {
             return null;
         }

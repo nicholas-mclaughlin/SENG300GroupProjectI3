@@ -146,7 +146,7 @@ public class AttendentControlConsoleTest {
 		attendantControlConsole.logIn("employee1", "1234");
         PriceLookupCode code = new PriceLookupCode("0987");
         PLUCodedProduct product = new PLUCodedProduct(code, "item1", new BigDecimal("10.00"));
-        Database.PLU_PRODUCT_DATABASE.put(code, product);
+        Database.PLU_PRODUCT_DATABASE1.put(code, product);
 		
 		Product result = attendantControlConsole.attendantLookforPLUcodedProdcut(code);
 		

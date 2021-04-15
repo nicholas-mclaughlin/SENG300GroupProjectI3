@@ -89,9 +89,12 @@ public class CashScreen {
 		BigDecimal cashAmount = new BigDecimal("0");
 		Banknote currentNote;
 		Coin currentCoin;
+		
+		PaymentController pControl = station.getPaymentController();
+		
 		while (station.isTransactionInProgress()) {
 			//accept cash
-			station.paymentController.addToPayment(cashAmount);
+			pControl.addToPayment(cashAmount);
 		}
 		
 		openLabel.setForeground(Color.BLACK);

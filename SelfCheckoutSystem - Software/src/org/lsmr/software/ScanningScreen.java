@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -147,7 +148,7 @@ public class ScanningScreen {
 		finishButton.setMaximumSize(new Dimension((int)(listWidth*0.6), (int)(listHeight*0.13)));
 		finishButton.setBackground(Color.GREEN);
 		finishButton.setBorder(new LineBorder(Color.GREEN, 1, true));
-		finishButton.setFont(new Font("Arial", Font.PLAIN, 60));
+		finishButton.setFont(new Font("Arial", Font.PLAIN, (int)(listHeight*0.07)));
 		
 		
 		
@@ -227,7 +228,14 @@ public class ScanningScreen {
 		fruitsImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		fruitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-
+		fruitsImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
 
 		JPanel bakeryPanel = new JPanel();
 		bakeryPanel.setLayout(new BoxLayout(bakeryPanel, BoxLayout.PAGE_AXIS));
@@ -259,6 +267,13 @@ public class ScanningScreen {
 		bakeryImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bakeryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		bakeryImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
 		
 		
 		JPanel otherPanel = new JPanel();
@@ -290,6 +305,13 @@ public class ScanningScreen {
 		otherImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		otherLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		otherImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
 		
 		
 		JPanel barcodePanel = new JPanel();
@@ -322,6 +344,14 @@ public class ScanningScreen {
 		barcodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
+		barcodeImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
 		
 		JPanel bagPanel = new JPanel();
 		bagPanel.setLayout(new BoxLayout(bagPanel, BoxLayout.PAGE_AXIS));
@@ -351,6 +381,17 @@ public class ScanningScreen {
 		selectionsPanels.add(bagPanel);
 		bagImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bagLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		
+		bagImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	Object[] options = { "DONE"};
+                int name = JOptionPane.showOptionDialog(null, "Click DONE when finished", "Add Own Bags to Bagging Area",
+                		JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION,
+                		null, options, options[0]);
+            }
+        });
 		
 		
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));

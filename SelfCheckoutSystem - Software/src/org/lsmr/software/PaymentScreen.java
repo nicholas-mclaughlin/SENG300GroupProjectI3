@@ -36,9 +36,10 @@ public class PaymentScreen {
 	JPanel cashScreen;
 	JPanel giftCardScreen;
 	JPanel memberScreen;
+	SoftwareController station;
 	
 	
-	public PaymentScreen(int screenWidth, int screenHeight, JFrame frame, JPanel creditScreen, JPanel debitScreen, JPanel cashScreen, JPanel giftCardScreen, JPanel memberScreen) {
+	public PaymentScreen(int screenWidth, int screenHeight, JFrame frame, JPanel creditScreen, JPanel debitScreen, JPanel cashScreen, JPanel giftCardScreen, JPanel memberScreen, SoftwareController station) {
 		
 		this.frame = frame;
 		this.creditScreen = creditScreen;
@@ -46,6 +47,7 @@ public class PaymentScreen {
 		this.cashScreen = cashScreen;
 		this.giftCardScreen = giftCardScreen;
 		this.memberScreen = memberScreen;
+		this.station = station;
 		
 		screen = new JPanel();
 		screen.setSize(screenWidth, screenHeight);
@@ -172,6 +174,7 @@ public class PaymentScreen {
 		JPanel creditPanel = new JPanel();
 		creditPanel.setLayout(new BoxLayout(creditPanel, BoxLayout.PAGE_AXIS));
 		
+		station.moveToPayment();
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
 		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/credit.jpg");
@@ -187,6 +190,7 @@ public class PaymentScreen {
 		creditImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	station.paymentController.setPaymentType(2); //payment type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(creditScreen);
 		    	 frame.revalidate();
@@ -226,6 +230,7 @@ public class PaymentScreen {
 		debitImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	station.paymentController.setPaymentType(2); //type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(debitScreen);
 		    	 frame.revalidate();
@@ -346,10 +351,11 @@ public class PaymentScreen {
 		giftcardImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	 frame.getContentPane().removeAll();
-		    	 frame.add(giftCardScreen);
-		    	 frame.revalidate();
-		    	 frame.repaint();
+		    	station.paymentController.setPaymentType(3);
+		    	frame.getContentPane().removeAll();
+		    	frame.add(giftCardScreen);
+		    	frame.revalidate();
+		    	frame.repaint();
 		    }
 		});
 		

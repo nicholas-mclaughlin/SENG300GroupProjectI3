@@ -30,10 +30,12 @@ public class MembershipScreen {
 	private JPanel screen;
 	private JPanel exitScreen;
 	private JFrame frame;
+	SoftwareController station;
 	
-	public MembershipScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen) {
+	public MembershipScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen, SoftwareController station) {
 		this.frame = frame;
 		this.exitScreen = exitScreen;
+		this.station = station;
 		
 		screen = new JPanel();
 
@@ -86,6 +88,16 @@ public class MembershipScreen {
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
 		JLabel bagLabel = new JLabel("Please Enter the Membership Card Number");
+	
+		//check validity of membership
+		
+		station.membershipCardController.beginScanningPhase();
+		station.membershipCardController.barcodeScanner.scan();
+		String membership = null;
+		station.membershipCardController.beginTypingPhase();
+		if (membership != null)
+			station.membershipCardController.typedMembershipValidity(membership);
+		
 		
 		bagLabel.setForeground(Color.BLUE);
 		bagLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.045)));

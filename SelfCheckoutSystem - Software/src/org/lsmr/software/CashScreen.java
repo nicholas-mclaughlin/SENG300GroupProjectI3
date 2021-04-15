@@ -27,10 +27,12 @@ public class CashScreen {
 	private JPanel screen;
 	private JPanel exitScreen;
 	private JFrame frame;
+	SoftwareController station;
 	
-	public CashScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen) {
+	public CashScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen, SoftwareController station) {
 		this.frame = frame;
 		this.exitScreen = exitScreen;
+		this.station = station;
 		
 		screen = new JPanel();
 
@@ -83,6 +85,14 @@ public class CashScreen {
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
 		JLabel openLabel = new JLabel("Please Insert the Cash in the machine");
+		
+		BigDecimal cashAmount = new BigDecimal("0");
+		Banknote currentNote;
+		Coin currentCoin;
+		while (station.isTransactionInProgress()) {
+			//accept cash
+			station.paymentController.addToPayment(cashAmount);
+		}
 		
 		openLabel.setForeground(Color.BLACK);
 		openLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.05)));

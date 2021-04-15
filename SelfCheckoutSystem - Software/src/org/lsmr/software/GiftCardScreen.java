@@ -27,10 +27,12 @@ public class GiftCardScreen {
 	private JPanel screen;
 	private JPanel exitScreen;
 	private JFrame frame;
+	SoftwareController station;
 	
-	public GiftCardScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen) {
+	public GiftCardScreen(int screenWidth, int screenHeight, JFrame frame, JPanel exitScreen, SoftwareController station) {
 		this.frame = frame;
 		this.exitScreen = exitScreen;
+		this.station = station;
 		
 		screen = new JPanel();
 
@@ -83,6 +85,8 @@ public class GiftCardScreen {
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
 		JLabel openLabel = new JLabel("Please Insert, Swipe or Tap the Gift Card in the machine");
+
+		station.paymentController.analyseGiftCardData();
 		
 		openLabel.setForeground(Color.BLACK);
 		openLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.03)));

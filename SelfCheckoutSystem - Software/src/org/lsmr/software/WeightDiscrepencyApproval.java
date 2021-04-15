@@ -1,35 +1,33 @@
 package org.lsmr.software;
 import org.lsmr.selfcheckout.*;
 import org.lsmr.selfcheckout.devices.*;
+import org.lsmr.selfcheckout.devices.listeners.ElectronicScaleListener;
 
 public class WeightDiscrepencyApproval {
 	
 	private ElectronicScale es;
-	private ElectronicScale esl;
+	private ElectronicScaleListener esl;
 	
 	
-	public WeightDiscrepencyApproval(ElectronicScale es, ElectronicScaleListener esl) {
-		
+	public WeightDiscrepencyApproval(ElectronicScale es) {		
 		this.es = es;
-		this.esl = esl;
-		
 		
 	}
 	
 	//manage overload exception
 	
-	public void overloadCatch() {
+	public void overloadCatch() throws Exception {
 		
 		try {
 		
-			es.getCurrentWeight()
+			es.getCurrentWeight();
 			//int sensitivty = es.getSensitivity();
 			
 		}catch(OverloadException e) {
 			
 			if ( !(approve())) {
 				
-				throw new OverLoadException();
+				throw new Exception();
 				
 			}
 			
@@ -38,12 +36,18 @@ public class WeightDiscrepencyApproval {
 	}
 	
 	public boolean approve() {
-		
-		//from attendant console
-		return logIn();
+		System.out.println("Please continue bagging items");
+//		from attendant console
+		return true;
 		
 	}
 	
+	
+	public boolean dontApprove() {
+//		from attendant console
+		return false;
+		
+	}
 	
 
 }

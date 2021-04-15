@@ -1,9 +1,20 @@
 
-package org.lsmr.selfcheckout.devices;
-import a3Test.BaggingAreaController;
-import a3Test.DatabaseController;
-import a3Test.PaymentController;
-import a3Test.ScanController;
+package org.lsmr.software;
+import org.lsmr.selfcheckout.devices.BanknoteDispenser;
+import org.lsmr.selfcheckout.devices.BanknoteSlot;
+import org.lsmr.selfcheckout.devices.BanknoteStorageUnit;
+import org.lsmr.selfcheckout.devices.BanknoteValidator;
+import org.lsmr.selfcheckout.devices.BarcodeScanner;
+import org.lsmr.selfcheckout.devices.CardReader;
+import org.lsmr.selfcheckout.devices.CoinDispenser;
+import org.lsmr.selfcheckout.devices.CoinSlot;
+import org.lsmr.selfcheckout.devices.CoinStorageUnit;
+import org.lsmr.selfcheckout.devices.CoinTray;
+import org.lsmr.selfcheckout.devices.CoinValidator;
+import org.lsmr.selfcheckout.devices.ElectronicScale;
+import org.lsmr.selfcheckout.devices.ReceiptPrinter;
+import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
+
 
 //Class to block a self checkout station
 // functionality to disable and enable all devices for that specific station
@@ -12,7 +23,7 @@ public class BlockStation {
 	
 	private SelfCheckoutStation sc;
 	private BanknoteDispenser bnd;
-	private BankoteSlot bns;
+	private BanknoteSlot bns;
 	private BanknoteStorageUnit bnsu; 
 	private BanknoteValidator bnv; 
 	private BarcodeScanner bcs;
@@ -25,7 +36,7 @@ public class BlockStation {
 	private ElectronicScale es;
 	private ReceiptPrinter rp;
 
-	public BlockStation(SelfCheckoutStation sc, BanknoteDispenser bnd, BankoteSlot bns, BanknoteStorageUnit bnsu, BanknoteValidator bnv, 
+	public BlockStation(SelfCheckoutStation sc, BanknoteDispenser bnd, BanknoteSlot bns, BanknoteStorageUnit bnsu, BanknoteValidator bnv, 
 			BarcodeScanner bcs, CardReader cr, CoinDispenser cd, CoinSlot cs, CoinStorageUnit csu, CoinTray ct, 
 			CoinValidator cv, ElectronicScale es, ReceiptPrinter rpr) {
 		

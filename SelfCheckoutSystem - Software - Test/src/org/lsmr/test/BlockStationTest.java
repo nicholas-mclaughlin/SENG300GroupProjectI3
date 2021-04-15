@@ -1,4 +1,4 @@
-package a3Test;
+package org.lsmr.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +23,7 @@ import org.lsmr.selfcheckout.devices.CoinValidator;
 import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
 import org.lsmr.selfcheckout.products.BarcodedProduct;
 import org.lsmr.software.BaggingAreaController;
+import org.lsmr.software.BlockStation;
 import org.lsmr.software.Database;
 import org.lsmr.software.DatabaseController;
 import org.lsmr.software.DatabaseItem;
@@ -52,7 +53,7 @@ public class BlockStationTest {
 		private CoinSlot coinSlot = new CoinSlot();
 		private CoinValidator coinValidator;
 		private CoinTray coinTray = new CoinTray(100);
-		private CoinStorageUnit coinStorage = new CoinStorageUnit(100);
+		private CoinStorageUnit coinStorageUnit = new CoinStorageUnit(100);
 		private BlockStation blockStation;
 	    
 
@@ -134,7 +135,7 @@ public class BlockStationTest {
 	        scanController = new ScanController(station.mainScanner, databaseController, baggingAreaController);
 	        baggingAreaController.setScanController(scanController);
 	        PaymentController paymentController = new PaymentController(station.coinValidator, station.coinTray, station.coinSlot, station.coinStorage, station.coinDispensers, 
-	        		station.banknoteValidator, station.banknoteInput, station.banknoteStorage, station.banknoteDispensers);
+	        		station.banknoteValidator, station.banknoteInput, station.banknoteStorage, station.banknoteDispensers, cr);
 	        
 		    
 		    
@@ -150,7 +151,7 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteDispenserDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = bnd.isDisabled();
 	    	
 	    	
@@ -162,8 +163,8 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteDispenserEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = bnd.isDisabled();
 	    	
 	    	
@@ -175,7 +176,7 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteSlotDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = bns.isDisabled();
 	    	
 	    	
@@ -187,8 +188,8 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteSlotEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = bns.isDisabled();
 	    	
 	    	
@@ -199,7 +200,7 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteStorageDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = bnsu.isDisabled();
 	    	
 	    	
@@ -211,8 +212,8 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteStorageEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = bnsu.isDisabled();
 	    	
 	    	
@@ -224,7 +225,7 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteValidatorDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = bnv.isDisabled();
 	    	
 	    	
@@ -236,8 +237,8 @@ public class BlockStationTest {
 	    @Test
 	    public void banknoteValidatorEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = bnv.isDisabled();
 	    	
 	    	
@@ -248,7 +249,7 @@ public class BlockStationTest {
 	    @Test
 	    public void barcodeScannerDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = bcs.isDisabled();
 	    	
 	    	
@@ -260,8 +261,8 @@ public class BlockStationTest {
 	    @Test
 	    public void BarcodeScannerEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = bcs.isDisabled();
 	    	
 	    	
@@ -273,7 +274,7 @@ public class BlockStationTest {
 	    @Test
 	    public void cardReaderDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = cr.isDisabled();
 	    	
 	    	
@@ -285,8 +286,8 @@ public class BlockStationTest {
 	    @Test
 	    public void cardReaderEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = cr.isDisabled();
 	    	
 	    	
@@ -297,7 +298,7 @@ public class BlockStationTest {
 	    @Test
 	    public void coinDispenserDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = coinDispenserToonie.isDisabled();
 	    	
 	    	
@@ -309,8 +310,8 @@ public class BlockStationTest {
 	    @Test
 	    public void coinDispenserEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = coinDispenserToonie.isDisabled();
 	    	
 	    	
@@ -321,7 +322,7 @@ public class BlockStationTest {
 	    @Test
 	    public void coinSlotDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = coinSlot.isDisabled();
 	    	
 	    	
@@ -333,8 +334,8 @@ public class BlockStationTest {
 	    @Test
 	    public void coinSlotEnable() {
 	        
-	    	cblockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = coinSlot.isDisabled();
 	    	
 	    	
@@ -345,8 +346,8 @@ public class BlockStationTest {
 	    @Test
 	    public void coinStorageDisable() {
 	        
-	    	blockStation.disable();
-	    	boolean result = coinStorage.isDisabled();
+	    	blockStation.disableStation();
+	    	boolean result = coinStorageUnit.isDisabled();
 	    	
 	    	
 	        assertEquals(false, result);
@@ -357,9 +358,9 @@ public class BlockStationTest {
 	    @Test
 	    public void coinStorageEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
-	    	boolean result = coinStorage.isDisabled();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
+	    	boolean result = coinStorageUnit.isDisabled();
 	    	
 	    	
 	        assertEquals(true, result);
@@ -369,7 +370,7 @@ public class BlockStationTest {
 	    @Test
 	    public void coinTrayDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = coinTray.isDisabled();
 	    	
 	    	
@@ -381,8 +382,8 @@ public class BlockStationTest {
 	    @Test
 	    public void coinTrayEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = coinTray.isDisabled();
 	    	
 	    	
@@ -393,7 +394,7 @@ public class BlockStationTest {
 	    @Test
 	    public void coinValidatorDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = coinValidator.isDisabled();
 	    	
 	    	
@@ -405,8 +406,8 @@ public class BlockStationTest {
 	    @Test
 	    public void coinValidatorEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = coinValidator.isDisabled();
 	    	
 	    	
@@ -418,7 +419,7 @@ public class BlockStationTest {
 	    @Test
 	    public void scaleDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = es.isDisabled();
 	    	
 	    	
@@ -430,8 +431,8 @@ public class BlockStationTest {
 	    @Test
 	    public void scaleEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = es.isDisabled();
 	    	
 	    	
@@ -443,7 +444,7 @@ public class BlockStationTest {
 	    @Test
 	    public void printerDisable() {
 	        
-	    	blockStation.disable();
+	    	blockStation.disableStation();
 	    	boolean result = rp.isDisabled();
 	    	
 	    	
@@ -455,8 +456,8 @@ public class BlockStationTest {
 	    @Test
 	    public void printerEnable() {
 	        
-	    	blockStation.disable();
-	    	blockStation.enable();
+	    	blockStation.disableStation();
+	    	blockStation.enableStation();
 	    	boolean result = rp.isDisabled();
 	    	
 	    	

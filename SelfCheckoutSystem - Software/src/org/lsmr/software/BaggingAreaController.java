@@ -1,5 +1,6 @@
 package org.lsmr.software;
 
+import org.lsmr.selfcheckout.BarcodedItem;
 import org.lsmr.selfcheckout.Item;
 import org.lsmr.selfcheckout.devices.AbstractDevice;
 import org.lsmr.selfcheckout.devices.ElectronicScale;
@@ -79,6 +80,9 @@ public class BaggingAreaController {
 	public double getExpectedItemWeight() {
 		return expectedItemWeight;
 	}	
+	public void setExpectedItemWeight(double w) {
+		this.expectedItemWeight = w;
+	}
 	
 	public PersonalBaggingListener getPersonalBaggingListener() {
 		return personalBaggingListener;
@@ -123,6 +127,24 @@ public class BaggingAreaController {
 		}
     }
 	
+	public void skipBaggingItem (BarcodedItem i) {
+		double changeInWeight = i.getWeight();
+		if(isBaggingPhase == true) {
+			if ( (expectedItemWeight - changeInWeight) < 0.01) { // change in weight close to 0.0
+				totalWeight += 0; // total Weight does not change 
+				isBaggingPhase = false; // set bagging phase to false
+				baggingReminder.cancel();
+				bagItemOverdue = false;
+				scanController.continueScanning();
+			}
+			else {
+				System.out.println("Item weight doesn't match expected weight. Please remove item and try again");
+				unknownWeight += changeInWeight;				
+			}
+		}
+		
+	}
+	
 	
 	public void startRemovingItem(double expectedWeight) {
 		if (!isBaggingPhase && !isRemovingPhase) {
@@ -145,6 +167,7 @@ public class BaggingAreaController {
 			scanController.continueScanning();
 		}
     }
+    
 
     /*
     We will make sure to match this stub to whatever is required in the third iteration.

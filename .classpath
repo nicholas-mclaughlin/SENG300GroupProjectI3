@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="SelfCheckoutSystem - Software/src"/>
+	<classpathentry kind="src" path="SelfCheckoutSystem - Software - Test/src"/>
+	<classpathentry kind="src" path="SelfCheckoutSystem - Hardware - v3.0/src"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/junit/junit/4.12/junit-4.12.jar"/>
+	<classpathentry kind="output" path="output/production/SENG300GroupProjectI3"/>
+</classpath>

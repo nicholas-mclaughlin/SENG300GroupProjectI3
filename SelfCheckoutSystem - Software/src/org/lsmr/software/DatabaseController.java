@@ -42,7 +42,7 @@ public class DatabaseController {
             return null;
         }
     }
-    
+
     public PLUCodedProduct getpluCodedProduct(PriceLookupCode pluProductCode) {
         try {
             return database.PLU_PRODUCT_DATABASE.get(pluProductCode).pluCodedProduct;
@@ -51,4 +51,11 @@ public class DatabaseController {
         }
     }
     
+    public PLUCodedProduct getPLUcodedProduct(PriceLookupCode pluCode) {
+        try {
+            return  database.PLU_PRODUCT_DATABASE1.get(pluCode);
+        } catch (NullPointerException n) {
+            return null;
+        }
+    }
 }

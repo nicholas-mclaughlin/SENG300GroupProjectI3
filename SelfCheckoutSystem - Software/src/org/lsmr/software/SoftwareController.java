@@ -62,7 +62,15 @@ public class SoftwareController {
         receiptController.printReceipt(currentPurchase);
         currentPurchase = null;
     }
+
     public DatabaseController getDatabaseController() {
     	return this.databaseController;
     }
+
+
+    public SelfCheckoutStation getStation(){
+        return this.station;
+    }
+    public DatabaseController getDatabaseController(){return this.databaseController;}
+
 }

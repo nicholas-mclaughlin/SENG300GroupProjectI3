@@ -22,7 +22,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -35,8 +37,10 @@ public class ScanningScreen {
 	private JPanel paymentScreen;
 	private JPanel bagNumScreen;
 	boolean haveBag = StartScreen.isHaveBag();
+	private SoftwareController sc;
 	
-	public ScanningScreen(int screenWidth, int screenHeight, JFrame frame, JPanel bagNumScreen ,JPanel paymentScreen) {
+	public ScanningScreen(int screenWidth, int screenHeight, JFrame frame, JPanel bagNumScreen, SoftwareController sc ,JPanel paymentScreen) {
+		this.sc = sc;
 		this.frame = frame;
 		this.paymentScreen = paymentScreen;
 		this.bagNumScreen = bagNumScreen;
@@ -57,9 +61,25 @@ public class ScanningScreen {
 		JPanel listPanel = new JPanel();
 		
 		JLabel yourShopping = new JLabel("Your Shopping");
-		JTextField items = new JTextField();
+		JPanel items = new JPanel();
+		items.setLayout(new BoxLayout(items, BoxLayout.LINE_AXIS));
+//		JTextArea items = new JTextArea();
+		//items.setText("asdfghjklpoiuytrewasdfghjklmnbvcxzasdfghjkloiuytrewqasdfghjklmnbvcx");
 		JPanel total = new JPanel();
 		JPanel finish = new JPanel();
+		
+		JTextArea item = new JTextArea();
+		JTextArea price = new JTextArea();
+//		item.setBackground(Color.red);
+//		price.setBackground(Color.blue);
+		item.setMinimumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		item.setPreferredSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		item.setMaximumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setMinimumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setPreferredSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setMaximumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		items.add(item);
+		items.add(price);
 		
 		yourShopping.setOpaque(true);
 		yourShopping.setBackground(Color.GRAY);
@@ -147,7 +167,7 @@ public class ScanningScreen {
 		finishButton.setMaximumSize(new Dimension((int)(listWidth*0.6), (int)(listHeight*0.13)));
 		finishButton.setBackground(Color.GREEN);
 		finishButton.setBorder(new LineBorder(Color.GREEN, 1, true));
-		finishButton.setFont(new Font("Arial", Font.PLAIN, 60));
+		finishButton.setFont(new Font("Arial", Font.PLAIN, (int)(listHeight*0.07)));
 		
 		
 		
@@ -227,6 +247,15 @@ public class ScanningScreen {
 		fruitsImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		fruitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
+		fruitsImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
 
 
 		JPanel bakeryPanel = new JPanel();
@@ -260,6 +289,15 @@ public class ScanningScreen {
 		bakeryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
+		bakeryImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
+		
 		
 		JPanel otherPanel = new JPanel();
 		otherPanel.setLayout(new BoxLayout(otherPanel, BoxLayout.PAGE_AXIS));
@@ -289,6 +327,16 @@ public class ScanningScreen {
 		selectionsPanels.add(otherPanel);
 		otherImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		otherLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		
+		otherImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
 		
 		
 		
@@ -322,6 +370,15 @@ public class ScanningScreen {
 		barcodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
+		barcodeImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String name = JOptionPane.showInputDialog(frame,
+                        "Please enter barcode?", null);
+            }
+        });
+		
+		
 		
 		JPanel bagPanel = new JPanel();
 		bagPanel.setLayout(new BoxLayout(bagPanel, BoxLayout.PAGE_AXIS));
@@ -351,6 +408,17 @@ public class ScanningScreen {
 		selectionsPanels.add(bagPanel);
 		bagImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bagLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		bagImage.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	Object[] options = { "DONE"};
+                int name = JOptionPane.showOptionDialog(null, "Click DONE when finished", "Add Own Bags to Bagging Area",
+                		JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION,
+                		null, options, options[0]);
+            }
+        });
+		
 		
 		
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));

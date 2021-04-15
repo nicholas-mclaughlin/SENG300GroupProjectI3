@@ -32,7 +32,7 @@ public class PaymentController {
     private BigDecimal total;
     private BigDecimal amountPaid;
     private boolean isPaymentPhase = false;
-    private int paymentType = 0;		// (0 is default, 1 indicates cash/coin, 1 indicates card)
+    private int paymentType = 0;		// (0 is default, 1 indicates cash/coin, 2 indicates card)
     private boolean shouldEmptyCoinStorage = false;
     private boolean shouldEmptyBanknoteStorage = false;
     private Currency currency;

@@ -22,8 +22,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -248,6 +248,7 @@ public class ScanningScreen {
 		fruitsImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		fruitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
 		fruitsImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,6 +257,7 @@ public class ScanningScreen {
             }
         });
 		
+
 
 		JPanel bakeryPanel = new JPanel();
 		bakeryPanel.setLayout(new BoxLayout(bakeryPanel, BoxLayout.PAGE_AXIS));
@@ -287,6 +289,7 @@ public class ScanningScreen {
 		bakeryImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bakeryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
 		bakeryImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,6 +297,7 @@ public class ScanningScreen {
                         "Please enter barcode?", null);
             }
         });
+		
 		
 		
 		JPanel otherPanel = new JPanel();
@@ -325,6 +329,7 @@ public class ScanningScreen {
 		otherImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		otherLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
 		otherImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +337,8 @@ public class ScanningScreen {
                         "Please enter barcode?", null);
             }
         });
+		
+		
 		
 		
 		JPanel barcodePanel = new JPanel();
@@ -373,6 +380,7 @@ public class ScanningScreen {
         });
 		
 		
+		
 		JPanel bagPanel = new JPanel();
 		bagPanel.setLayout(new BoxLayout(bagPanel, BoxLayout.PAGE_AXIS));
 		
@@ -402,7 +410,6 @@ public class ScanningScreen {
 		bagImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bagLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		
 		bagImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,6 +419,7 @@ public class ScanningScreen {
                 		null, options, options[0]);
             }
         });
+		
 		
 		
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));

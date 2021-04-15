@@ -35,12 +35,10 @@ public class Database {
      */
     public static final Map<Barcode, DatabaseItem> BARCODED_PRODUCT_DATABASE = new HashMap<>();
 
-    // Armeen's method
     public static final Map<PriceLookupCode, DatabaseItem> PLU_PRODUCT_DATABASE = new HashMap<>();
     
     /**
      * The know PLU products, indexed by barcode.
-     * Wei's method - added a 1 to the name
      */
     public static final Map<PriceLookupCode, PLUCodedProduct> PLU_PRODUCT_DATABASE1 = new HashMap<>();
 

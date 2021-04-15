@@ -43,7 +43,6 @@ public class DatabaseController {
         }
     }
 
-    // Armeen's method
     public PLUCodedProduct getpluCodedProduct(PriceLookupCode pluProductCode) {
         try {
             return database.PLU_PRODUCT_DATABASE.get(pluProductCode).pluCodedProduct;
@@ -52,7 +51,6 @@ public class DatabaseController {
         }
     }
     
-    // Wei's method
     public PLUCodedProduct getPLUcodedProduct(PriceLookupCode pluCode) {
         try {
             return  database.PLU_PRODUCT_DATABASE1.get(pluCode);

@@ -45,6 +45,10 @@ public class ScanningScreen {
 		this.paymentScreen = paymentScreen;
 		this.bagNumScreen = bagNumScreen;
 		
+		sc.getScanController().beginScan();
+		
+		
+		
 		screen = new JPanel();
 		screen.setSize(screenWidth, screenHeight);
 		screen.setLayout(null);
@@ -81,9 +85,11 @@ public class ScanningScreen {
 		items.add(item);
 		items.add(price);
 		
+		
 		yourShopping.setOpaque(true);
 		yourShopping.setBackground(Color.GRAY);
 		total.setBackground(Color.GRAY);
+		
 		
 		
 		yourShopping.setMinimumSize(new Dimension((int)(listWidth*0.95), (int)(listHeight*0.05)));
@@ -104,6 +110,7 @@ public class ScanningScreen {
 		listPanel.add(items);
 		listPanel.add(total);
 		listPanel.setBorder(new LineBorder(Color.gray, 8, true));
+		
 		
 		yourShopping.setForeground(Color.white);
 		yourShopping.setFont(new Font("Serif", Font.BOLD, (int)(listHeight*0.04)));
@@ -142,21 +149,12 @@ public class ScanningScreen {
 		finishButton.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	 if(haveBag == true) {
 		    		 //System.out.print(haveBag);
-		    		 frame.getContentPane().removeAll();
-			    	 frame.add(paymentScreen);
-			    	 frame.revalidate();
-			    	 frame.repaint();
-		    	 }
-		    	 else {
-		    		 //System.out.print(haveBag);
+		    		sc.getScanController().endScan();
 		    		 frame.getContentPane().removeAll();
 			    	 frame.add(bagNumScreen);
 			    	 frame.revalidate();
 			    	 frame.repaint();
-		    	 }
-		    	 
 		    }
 		});
 		

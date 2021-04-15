@@ -18,7 +18,16 @@ public class DatabaseController {
     public DatabaseController(Database database) {
         this.database = database;
     }
-
+    
+    public Barcode getBarcodeOfItem(String itemName) {
+        try {
+            return  Database.PRODUCT_NAME_DATABASE.get(itemName).barcodedProduct.getBarcode();
+        } catch (NullPointerException n) {
+            return null;
+        }
+    }
+        
+    
     public double getExpectedWeight(Barcode barcode) {
         try {
             return database.BARCODED_PRODUCT_DATABASE.get(barcode).expectedWeight;

@@ -37,6 +37,8 @@ public class Database {
 
     public static final Map<PriceLookupCode, DatabaseItem> PLU_PRODUCT_DATABASE = new HashMap<>();
     
+    public static final Map<String, DatabaseItem> PRODUCT_NAME_DATABASE = new HashMap<>();
+    
     /**
      * The know PLU products, indexed by barcode.
      */

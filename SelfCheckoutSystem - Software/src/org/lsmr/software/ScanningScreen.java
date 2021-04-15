@@ -28,7 +28,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import org.lsmr.selfcheckout.Barcode;
 import org.lsmr.selfcheckout.devices.TouchScreen;
+import org.lsmr.selfcheckout.products.BarcodedProduct;
 
 public class ScanningScreen {
 	
@@ -150,7 +152,7 @@ public class ScanningScreen {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		    		 //System.out.print(haveBag);
-		    		sc.getScanController().endScan();
+		    		 sc.getScanController().endScan();
 		    		 frame.getContentPane().removeAll();
 			    	 frame.add(bagNumScreen);
 			    	 frame.revalidate();
@@ -245,14 +247,18 @@ public class ScanningScreen {
 		fruitsImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		fruitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		
 		fruitsImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
-                        "Please enter barcode?", null);
+                        "Please enter Item name?", null);
+            	item.setText((sc.getDatabaseController().getBarcodeOfItem(name)) + "\n");
+            	price.setText(((sc.getDatabaseController().getBarcodedProduct((sc.getDatabaseController().getBarcodeOfItem(name)))).getPrice()).toString()+ "\n");
+            	
             }
         });
+		
+		
 		
 
 
@@ -291,7 +297,10 @@ public class ScanningScreen {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
-                        "Please enter barcode?", null);
+                        "Please enter the Item Name?", null);
+            	
+            	item.setText((sc.getDatabaseController().getBarcodeOfItem(name)) + "\n");
+            	price.setText(((sc.getDatabaseController().getBarcodedProduct((sc.getDatabaseController().getBarcodeOfItem(name)))).getPrice()).toString() + "\n");
             }
         });
 		
@@ -331,7 +340,9 @@ public class ScanningScreen {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
-                        "Please enter barcode?", null);
+                        "Please enter Item Name?", null);
+            	item.setText((sc.getDatabaseController().getBarcodeOfItem(name)) + "\n");
+            	price.setText(((sc.getDatabaseController().getBarcodedProduct((sc.getDatabaseController().getBarcodeOfItem(name)))).getPrice()).toString() + "\n");
             }
         });
 		
@@ -371,8 +382,11 @@ public class ScanningScreen {
 		barcodeImage.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	String name = JOptionPane.showInputDialog(frame,
+            	String barcode = JOptionPane.showInputDialog(frame,
                         "Please enter barcode?", null);
+            	Barcode br = new Barcode(barcode);
+            	item.setText((sc.getDatabaseController().getBarcodedProduct(br)).toString() + "\n");
+            	price.setText(((sc.getDatabaseController().getBarcodedProduct(br)).getPrice()).toString() + "\n");
             }
         });
 		

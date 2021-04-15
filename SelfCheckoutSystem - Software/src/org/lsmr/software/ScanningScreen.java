@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -36,8 +37,10 @@ public class ScanningScreen {
 	private JPanel paymentScreen;
 	private JPanel bagNumScreen;
 	boolean haveBag = StartScreen.isHaveBag();
+	private SoftwareController sc;
 	
-	public ScanningScreen(int screenWidth, int screenHeight, JFrame frame, JPanel bagNumScreen ,JPanel paymentScreen) {
+	public ScanningScreen(int screenWidth, int screenHeight, JFrame frame, JPanel bagNumScreen, SoftwareController sc ,JPanel paymentScreen) {
+		this.sc = sc;
 		this.frame = frame;
 		this.paymentScreen = paymentScreen;
 		this.bagNumScreen = bagNumScreen;
@@ -58,9 +61,25 @@ public class ScanningScreen {
 		JPanel listPanel = new JPanel();
 		
 		JLabel yourShopping = new JLabel("Your Shopping");
-		JTextField items = new JTextField();
+		JPanel items = new JPanel();
+		items.setLayout(new BoxLayout(items, BoxLayout.LINE_AXIS));
+//		JTextArea items = new JTextArea();
+		//items.setText("asdfghjklpoiuytrewasdfghjklmnbvcxzasdfghjkloiuytrewqasdfghjklmnbvcx");
 		JPanel total = new JPanel();
 		JPanel finish = new JPanel();
+		
+		JTextArea item = new JTextArea();
+		JTextArea price = new JTextArea();
+//		item.setBackground(Color.red);
+//		price.setBackground(Color.blue);
+		item.setMinimumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		item.setPreferredSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		item.setMaximumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setMinimumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setPreferredSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		price.setMaximumSize(new Dimension((int)(listWidth*0.75), (int)(listHeight*0.6)));
+		items.add(item);
+		items.add(price);
 		
 		yourShopping.setOpaque(true);
 		yourShopping.setBackground(Color.GRAY);
@@ -149,6 +168,7 @@ public class ScanningScreen {
 		finishButton.setBackground(Color.GREEN);
 		finishButton.setBorder(new LineBorder(Color.GREEN, 1, true));
 		finishButton.setFont(new Font("Arial", Font.PLAIN, (int)(listHeight*0.07)));
+		finishButton.setFont(new Font("Arial", Font.PLAIN, 60));
 		
 		
 		

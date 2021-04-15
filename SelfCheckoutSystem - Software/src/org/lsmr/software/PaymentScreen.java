@@ -36,9 +36,10 @@ public class PaymentScreen {
 	JPanel cashScreen;
 	JPanel giftCardScreen;
 	JPanel memberScreen;
+	SoftwareController station;
 	
 	
-	public PaymentScreen(int screenWidth, int screenHeight, JFrame frame, JPanel creditScreen, JPanel debitScreen, JPanel cashScreen, JPanel giftCardScreen, JPanel memberScreen) {
+	public PaymentScreen(int screenWidth, int screenHeight, JFrame frame, JPanel creditScreen, JPanel debitScreen, JPanel cashScreen, JPanel giftCardScreen, JPanel memberScreen, SoftwareController station) {
 		
 		this.frame = frame;
 		this.creditScreen = creditScreen;
@@ -46,6 +47,7 @@ public class PaymentScreen {
 		this.cashScreen = cashScreen;
 		this.giftCardScreen = giftCardScreen;
 		this.memberScreen = memberScreen;
+		this.station = station;
 		
 		screen = new JPanel();
 		screen.setSize(screenWidth, screenHeight);
@@ -187,6 +189,7 @@ public class PaymentScreen {
 		creditImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	station.paymentController.paymentType = 2; //payment type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(creditScreen);
 		    	 frame.revalidate();
@@ -226,6 +229,7 @@ public class PaymentScreen {
 		debitImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	station.paymentController.paymentType = 2; //type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(debitScreen);
 		    	 frame.revalidate();
@@ -306,6 +310,7 @@ public class PaymentScreen {
 		membershipImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	//get membership 
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(memberScreen);
 		    	 frame.revalidate();
@@ -346,6 +351,7 @@ public class PaymentScreen {
 		giftcardImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    	//gift card payment??
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(giftCardScreen);
 		    	 frame.revalidate();

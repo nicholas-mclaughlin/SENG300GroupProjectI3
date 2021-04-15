@@ -17,6 +17,7 @@ public class SoftwareController {
     private boolean transactionInProgress = false;
     private Purchase currentPurchase = null;
     private ReceiptController receiptController;
+    private MembershipCardController membershipCardController;
 
     public SoftwareController(SelfCheckoutStation station) {
         this.station = station;
@@ -28,6 +29,7 @@ public class SoftwareController {
         		station.banknoteValidator, station.banknoteInput, station.banknoteStorage, station.banknoteDispensers, station.cardReader);
         baggingAreaController.setScanController(scanController);
         receiptController = new ReceiptController(station.printer);
+        membershipCardController = new membershipCardController();
     }
 
     public void beginTransaction() {
@@ -59,5 +61,8 @@ public class SoftwareController {
     public void printReceipt() {
         receiptController.printReceipt(currentPurchase);
         currentPurchase = null;
+    }
+    public DatabaseController getDatabaseController() {
+    	return this.databaseController;
     }
 }

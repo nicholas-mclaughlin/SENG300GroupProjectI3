@@ -174,6 +174,7 @@ public class PaymentScreen {
 		JPanel creditPanel = new JPanel();
 		creditPanel.setLayout(new BoxLayout(creditPanel, BoxLayout.PAGE_AXIS));
 		
+		station.moveToPayment();
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
 		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/credit.jpg");
@@ -189,7 +190,7 @@ public class PaymentScreen {
 		creditImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	station.paymentController.paymentType = 2; //payment type 2 denotes card
+		    	station.paymentController.setPaymentType(2); //payment type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(creditScreen);
 		    	 frame.revalidate();
@@ -229,7 +230,7 @@ public class PaymentScreen {
 		debitImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	station.paymentController.paymentType = 2; //type 2 denotes card
+		    	station.paymentController.setPaymentType(2); //type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(debitScreen);
 		    	 frame.revalidate();
@@ -310,7 +311,6 @@ public class PaymentScreen {
 		membershipImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	//get membership 
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(memberScreen);
 		    	 frame.revalidate();
@@ -351,11 +351,11 @@ public class PaymentScreen {
 		giftcardImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	//gift card payment??
-		    	 frame.getContentPane().removeAll();
-		    	 frame.add(giftCardScreen);
-		    	 frame.revalidate();
-		    	 frame.repaint();
+		    	station.paymentController.setPaymentType(3);
+		    	frame.getContentPane().removeAll();
+		    	frame.add(giftCardScreen);
+		    	frame.revalidate();
+		    	frame.repaint();
 		    }
 		});
 		

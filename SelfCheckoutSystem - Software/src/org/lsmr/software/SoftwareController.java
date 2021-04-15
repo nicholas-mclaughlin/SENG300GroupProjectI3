@@ -66,11 +66,27 @@ public class SoftwareController {
     public DatabaseController getDatabaseController() {
     	return this.databaseController;
     }
-
+    
+    public PaymentController getPaymentController() {
+        return this.paymentController;
+    }
+    
+    public ScanController getScanController() {
+        return this.scanController;
+    }
+    
+    public BaggingAreaController getBaggingAreaController {
+        return this.baggingAreaController;
+    }
+    
+    public ReceiptController getReceiptController {
+        return this.receiptController;
+    }
+    
+    public MembershipCardController getMembershipCardController {
+        return this.membershipCardController;
+    }
 
     public SelfCheckoutStation getStation(){
         return this.station;
     }
-    public DatabaseController getDatabaseController(){return this.databaseController;}
-
-}

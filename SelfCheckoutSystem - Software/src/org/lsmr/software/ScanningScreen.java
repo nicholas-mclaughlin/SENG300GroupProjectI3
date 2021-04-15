@@ -168,7 +168,6 @@ public class ScanningScreen {
 		finishButton.setBackground(Color.GREEN);
 		finishButton.setBorder(new LineBorder(Color.GREEN, 1, true));
 		finishButton.setFont(new Font("Arial", Font.PLAIN, (int)(listHeight*0.07)));
-		finishButton.setFont(new Font("Arial", Font.PLAIN, 60));
 		
 		
 		

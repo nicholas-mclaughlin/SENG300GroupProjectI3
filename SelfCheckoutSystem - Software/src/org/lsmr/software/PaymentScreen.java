@@ -174,7 +174,7 @@ public class PaymentScreen {
 		JPanel creditPanel = new JPanel();
 		creditPanel.setLayout(new BoxLayout(creditPanel, BoxLayout.PAGE_AXIS));
 		
-		station.moveToPayment();
+		//station.moveToPayment();
 		
 		// Image from: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
 		currentRelativePath = Paths.get("SENG300GroupProjectI3-main/SelfCheckoutSystem - Software/src/org/lsmr/software/GUI_Images/credit.jpg");

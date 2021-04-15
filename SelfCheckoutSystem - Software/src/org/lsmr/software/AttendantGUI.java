@@ -20,15 +20,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.lsmr.selfcheckout.devices.SelfCheckoutStation;
 import org.lsmr.selfcheckout.devices.TouchScreen;
 
 public class AttendantGUI {
 
-	public static void main(String[] args) {
+	private JFrame Attendantframe;
+	private JFrame CustomerFrame;
+	private SelfCheckoutStation station;
+	private SoftwareController sc;
+	
+	public AttendantGUI(JFrame Customerframe, SelfCheckoutStation station, SoftwareController sc) {
+		this.CustomerFrame = Customerframe;
+		this.station = station;
+		this.sc = sc;
+		
+		WeightDiscrepencyApproval wda = new WeightDiscrepencyApproval(station.scale);
+		
 		TouchScreen ts = new TouchScreen();
 		JFrame frame = ts.getFrame();
-		
-		
 		
 		frame.setVisible(true);
 		int frameWidth = frame.getWidth();
@@ -97,6 +107,7 @@ public class AttendantGUI {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
                         "Which Customer Station?", null);
+            	wda.approve();
             }
         });
 		
@@ -107,6 +118,7 @@ public class AttendantGUI {
                         "Which Customer Station?", null);
             	String name2 = JOptionPane.showInputDialog(frame,
                         "Enter Product ID", null);
+            	sc.getBaggingAreaController().startRemovingItem(0);
             }
         });
 		
@@ -123,6 +135,7 @@ public class AttendantGUI {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
                         "Which Customer Station?", null);
+            	Customerframe.setVisible(true);
             }
         });
 		
@@ -131,6 +144,7 @@ public class AttendantGUI {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
                         "Which Customer Station?", null);
+            	Customerframe.setVisible(false);
             }
         });
 		
@@ -139,6 +153,7 @@ public class AttendantGUI {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String name = JOptionPane.showInputDialog(frame,
                         "Which Customer Station?", null);
+            	Customerframe.setVisible(false);
             }
         });
 		
@@ -156,6 +171,14 @@ public class AttendantGUI {
 		
 		frame.revalidate();
 		frame.repaint();
+		
+		Attendantframe = frame;
+		
+		frame.setVisible(false);
 	}
 
+	public JFrame getFrame() {
+		return Attendantframe;
+	}
+	
 }

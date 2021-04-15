@@ -85,12 +85,14 @@ public class GUI {
 		StartScreen start = new StartScreen(frameWidth, frameHeight, frame, scanningScreen);
 		JPanel startScreen = start.getScreen();
 
-		
-		
 		frame.add(startScreen);
 		
 		frame.revalidate();
 		frame.repaint();
+		
+		AttendantGUI agui = new AttendantGUI(frame, station, sc);
+		JFrame aframe = agui.getFrame();
+		aframe.setVisible(true);
 	}
 
 }

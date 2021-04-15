@@ -91,12 +91,13 @@ public class MembershipScreen {
 	
 		//check validity of membership
 		
-		station.membershipCardController.beginScanningPhase();
-		station.membershipCardController.barcodeScanner.scan();
+		MembershipCardController mcControl = station.getMembershipCardController();
+		mcControl.beginScanningPhase();
+		mcControl.barcodeScanner.scan();
 		String membership = null;
-		station.membershipCardController.beginTypingPhase();
+		mcControl.beginTypingPhase();
 		if (membership != null)
-			station.membershipCardController.typedMembershipValidity(membership);
+			mcControl.typedMembershipValidity(membership);
 		
 		
 		bagLabel.setForeground(Color.BLUE);

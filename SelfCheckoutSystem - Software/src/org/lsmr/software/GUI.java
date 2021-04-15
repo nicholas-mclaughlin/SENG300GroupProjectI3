@@ -56,24 +56,24 @@ public class GUI {
 		ExitScreen exit = new ExitScreen(frameWidth, frameHeight, frame);
 		JPanel exitScreen = exit.getScreen();
 		
-		CreditScreen credit = new CreditScreen(frameWidth, frameHeight, frame, exitScreen);		
+		CreditScreen credit = new CreditScreen(frameWidth, frameHeight, frame, exitScreen, sc);		
 		JPanel creditScreen = credit.getScreen();
 		
-		DebitScreen debit = new DebitScreen(frameWidth, frameHeight, frame, exitScreen);
+		DebitScreen debit = new DebitScreen(frameWidth, frameHeight, frame, exitScreen, sc);
 		JPanel debitScreen = debit.getScreen();
 		
-		CashScreen cash = new CashScreen(frameWidth, frameHeight, frame, exitScreen);
+		CashScreen cash = new CashScreen(frameWidth, frameHeight, frame, exitScreen, sc);
 		JPanel cashScreen = cash.getScreen();
 		
-		GiftCardScreen gift = new GiftCardScreen(frameWidth, frameHeight, frame, exitScreen);
+		GiftCardScreen gift = new GiftCardScreen(frameWidth, frameHeight, frame, exitScreen,sc);
 		JPanel giftScreen = gift.getScreen();
 		
-		MembershipScreen member = new MembershipScreen(frameWidth, frameHeight, frame, exitScreen);
+		MembershipScreen member = new MembershipScreen(frameWidth, frameHeight, frame, exitScreen,sc);
 		JPanel memberScreen = member.getScreen();
 		
 
 		
-		PaymentScreen payment = new PaymentScreen(frameWidth, frameHeight, frame, creditScreen, debitScreen, cashScreen, giftScreen, memberScreen);
+		PaymentScreen payment = new PaymentScreen(frameWidth, frameHeight, frame, creditScreen, debitScreen, cashScreen, giftScreen, memberScreen,sc);
 		JPanel paymentScreen = payment.getScreen();
 		
 		BagNumberScreen bagScreen = new BagNumberScreen(frameWidth, frameHeight, frame,  paymentScreen);

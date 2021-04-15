@@ -10,6 +10,7 @@ import org.lsmr.selfcheckout.devices.*;
 public class SoftwareController {
 
     private SelfCheckoutStation station;
+    private BarcodeScanner barcodeScanner = new BarcodeScanner();
     private ScanController scanController;
     private BaggingAreaController baggingAreaController;
     private PaymentController paymentController;
@@ -29,7 +30,7 @@ public class SoftwareController {
         		station.banknoteValidator, station.banknoteInput, station.banknoteStorage, station.banknoteDispensers, station.cardReader);
         baggingAreaController.setScanController(scanController);
         receiptController = new ReceiptController(station.printer);
-        membershipCardController = new membershipCardController();
+        membershipCardController = new MembershipCardController(barcodeScanner);
     }
 
     public void beginTransaction() {
@@ -75,18 +76,23 @@ public class SoftwareController {
         return this.scanController;
     }
     
-    public BaggingAreaController getBaggingAreaController {
+    public BaggingAreaController getBaggingAreaController() {
         return this.baggingAreaController;
     }
     
-    public ReceiptController getReceiptController {
+    public ReceiptController getReceiptController() {
         return this.receiptController;
     }
     
-    public MembershipCardController getMembershipCardController {
+    public MembershipCardController getMembershipCardController() {
         return this.membershipCardController;
     }
 
     public SelfCheckoutStation getStation(){
         return this.station;
     }
+    
+    public BarcodeScanner getBarcodeScanner() {
+    	return barcodeScanner;
+    }
+}

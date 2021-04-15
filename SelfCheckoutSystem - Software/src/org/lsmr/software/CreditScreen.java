@@ -86,7 +86,7 @@ public class CreditScreen {
 		
 		JLabel openLabel = new JLabel("Please Insert, Swipe or Tap the Credit Card in the machine");
 		
-		station.paymentController.analyseCardData();
+		station.getPaymentController().analyseCardData();
 		
 		openLabel.setForeground(Color.BLACK);
 		openLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.02)));

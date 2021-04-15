@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -21,6 +22,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.lsmr.selfcheckout.Banknote;
+import org.lsmr.selfcheckout.Coin;
 
 public class CashScreen {
 
@@ -91,7 +95,7 @@ public class CashScreen {
 		Coin currentCoin;
 		while (station.isTransactionInProgress()) {
 			//accept cash
-			station.paymentController.addToPayment(cashAmount);
+			station.getPaymentController().addToPayment(cashAmount);
 		}
 		
 		openLabel.setForeground(Color.BLACK);

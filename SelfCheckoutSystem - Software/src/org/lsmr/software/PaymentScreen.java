@@ -190,7 +190,7 @@ public class PaymentScreen {
 		creditImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	station.paymentController.setPaymentType(2); //payment type 2 denotes card
+		    	station.getPaymentController().setPaymentType(2); //payment type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(creditScreen);
 		    	 frame.revalidate();
@@ -230,7 +230,7 @@ public class PaymentScreen {
 		debitImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	station.paymentController.setPaymentType(2); //type 2 denotes card
+		    	station.getPaymentController().setPaymentType(2); //type 2 denotes card
 		    	 frame.getContentPane().removeAll();
 		    	 frame.add(debitScreen);
 		    	 frame.revalidate();
@@ -351,7 +351,7 @@ public class PaymentScreen {
 		giftcardImage.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	station.paymentController.setPaymentType(3);
+		    	station.getPaymentController().setPaymentType(3);
 		    	frame.getContentPane().removeAll();
 		    	frame.add(giftCardScreen);
 		    	frame.revalidate();

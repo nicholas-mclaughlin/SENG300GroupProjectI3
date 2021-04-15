@@ -58,6 +58,10 @@ public class MembershipCardController {
 		isScanningPhase = false;
 	}
 
+	public BarcodeScanner getBarcodeScanner() {
+    	return barcodeScanner;
+    }
+	
 	
 	public MembershipCardController(BarcodeScanner barcodeScanner) {
 		this.barcodeScanner = barcodeScanner;

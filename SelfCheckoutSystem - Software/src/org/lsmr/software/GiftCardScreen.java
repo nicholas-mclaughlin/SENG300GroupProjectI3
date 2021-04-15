@@ -86,7 +86,7 @@ public class GiftCardScreen {
 		
 		JLabel openLabel = new JLabel("Please Insert, Swipe or Tap the Gift Card in the machine");
 
-		station.paymentController.analyseGiftCardData();
+		station.getPaymentController().analyseGiftCardData();
 		
 		openLabel.setForeground(Color.BLACK);
 		openLabel.setFont(new Font("Serif", Font.BOLD, (int)(rightPanelHeight*0.03)));
